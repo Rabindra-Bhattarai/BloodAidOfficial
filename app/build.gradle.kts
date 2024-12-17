@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.blood_aid"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.blood_aid"
@@ -45,4 +45,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.airbnb.android:lottie:3.6.1")
+
 }
