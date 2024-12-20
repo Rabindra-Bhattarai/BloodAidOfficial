@@ -4,9 +4,6 @@ plugins {
 }
 
 android {
-    buildFeatures{
-        viewBinding=true;
-    }
     namespace = "com.example.blood_aid"
     compileSdk = 35
 
