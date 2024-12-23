@@ -27,7 +27,10 @@ class StartActivity : AppCompatActivity() {
             val intent=Intent(this@StartActivity,OrgRegistrationActivity::class.java)
             startActivity(intent);
         }
-        binding.
+        binding.landingRegister.setOnClickListener{
+            val intent=Intent(this@StartActivity,UserActivity::class.java)
+            startActivity(intent);
+        }
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
