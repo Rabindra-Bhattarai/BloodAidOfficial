@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F9F9F9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- Header Section -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Organization Registration"
+            android:textColor="#D32F2F"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Register your organization to connect with donors and manage blood donation drives effectively."
+            android:textColor="#757575"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="Organization Name"
+            android:inputType="text"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:padding="8dp" />
+
+
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:padding="8dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/actAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="Address"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/etOrgRegNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="Registration Number"
+            android:inputType="phone"
+            android:padding="8dp" />
+
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnUploadLogo"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Upload Logo"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:backgroundTint="#D32F2F"-->
+        <!--            android:textColor="#FFFFFF" />-->
+
+        <!-- Agreement -->
+        <CheckBox
+            android:id="@+id/cbAgree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="I agree to the terms and conditions" />
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#D32F2F"
+            android:padding="12dp"
+            android:text="CONTINUE"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+</ScrollView>
