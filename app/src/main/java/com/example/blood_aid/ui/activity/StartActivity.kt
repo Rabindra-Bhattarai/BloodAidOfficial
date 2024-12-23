@@ -27,6 +27,7 @@ class StartActivity : AppCompatActivity() {
             val intent=Intent(this@StartActivity,OrgRegistrationActivity::class.java)
             startActivity(intent);
         }
+        binding.
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
