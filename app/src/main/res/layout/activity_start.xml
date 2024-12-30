@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ngoOrg" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/landingRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="58dp"

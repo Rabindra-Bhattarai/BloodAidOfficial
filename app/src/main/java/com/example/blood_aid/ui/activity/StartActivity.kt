@@ -1,5 +1,6 @@
 package com.example.blood_aid.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -19,10 +20,16 @@ class StartActivity : AppCompatActivity() {
         binding=ActivityStartBinding.inflate(layoutInflater)  //initializing binder
         setContentView(binding.root)// changed this
         binding.user.setOnClickListener{
-            TODO("Need to create User Registration Activity and intent to it")
+            val intent=Intent(this@StartActivity,NewRegistrationActivity::class.java)
+            startActivity(intent);
         }
         binding.ngoOrg.setOnClickListener{
-            TODO("Need to create organization Registration and intent to it")
+            val intent=Intent(this@StartActivity,OrgRegistrationActivity::class.java)
+            startActivity(intent);
+        }
+        binding.landingRegister.setOnClickListener{
+            val intent=Intent(this@StartActivity,UserActivity::class.java)
+            startActivity(intent);
         }
 
 
