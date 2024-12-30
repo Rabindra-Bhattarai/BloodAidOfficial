@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="If you are an old user then you've already got an email with Donor ID and password. If again you're in trouble then feel free to contact us."
+        android:text="If you are an old user then you've already got an email with Username and password. If again you're in trouble then feel free to contact us."
         android:textColor="@color/black"
         android:textSize="12sp" />
 
