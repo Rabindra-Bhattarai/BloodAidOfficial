@@ -45,28 +45,28 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/etFirstName"
+                android:id="@+id/etFullName"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/input_bg"
                 android:backgroundTint="#BBBBBB"
-                android:hint="First Name"
+                android:hint="Full Name"
                 android:padding="8dp" />
 
             <View
                 android:layout_width="8dp"
                 android:layout_height="match_parent" />
 
-            <EditText
-                android:id="@+id/etLastName"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/input_bg"
-                android:backgroundTint="#BBBBBB"
-                android:hint="Last Name"
-                android:padding="8dp" />
+<!--            <EditText-->
+<!--                android:id="@+id/etLastName"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/input_bg"-->
+<!--                android:backgroundTint="#BBBBBB"-->
+<!--                android:hint="Last Name"-->
+<!--                android:padding="8dp" />-->
         </LinearLayout>
 
 
@@ -104,6 +104,17 @@
             android:background="@drawable/input_bg"
             android:backgroundTint="#BBBBBB"
             android:hint="Address"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/etCitizenship"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="#BBBBBB"
+            android:hint="Citizenship"
+            android:inputType="phone"
             android:padding="8dp" />
 
         <!-- Blood Group -->
@@ -183,3 +194,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
+
