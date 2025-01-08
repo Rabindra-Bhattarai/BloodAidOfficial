@@ -2,7 +2,7 @@ package com.example.blood_aid.utils
 
 import android.app.Activity
 import android.app.AlertDialog
-import com.example.a35b_crud.R
+import com.example.blood_aid.R
 
 class LoadingUtils(val activity: Activity) {
     lateinit var alertDialog: AlertDialog
