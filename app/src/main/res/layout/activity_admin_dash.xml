@@ -15,13 +15,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/admin"
             android:contentDescription="App Logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood-Aid"
+            android:text="Admin"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20sp"
