@@ -40,6 +40,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="More items"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:id="@+id/centerContent"
                 android:layout_width="wrap_content"
@@ -48,38 +57,15 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginTop="32dp">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/admin" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Admin"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
             </LinearLayout>
-
-            <!-- "More Items" Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="More items"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="10dp" />
 
             <GridLayout
                 android:id="@+id/gridItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:columnCount="3"
-                android:padding="10dp"
-                android:layout_marginTop="24dp">
+                android:padding="10dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
@@ -92,21 +78,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/pending"
-                            android:contentDescription="Pending" />
+                            android:contentDescription="Pending"
+                            android:src="@drawable/pending" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pending"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="8dp"
+                            android:text="Pending" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -121,21 +107,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/approved"
-                            android:contentDescription="Approved" />
+                            android:contentDescription="Approved"
+                            android:src="@drawable/approved" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Approved"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="8dp"
+                            android:text="Approved" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -150,21 +136,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/denied"
-                            android:contentDescription="Denied" />
+                            android:contentDescription="Denied"
+                            android:src="@drawable/denied" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Denied"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="8dp"
+                            android:text="Denied" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
