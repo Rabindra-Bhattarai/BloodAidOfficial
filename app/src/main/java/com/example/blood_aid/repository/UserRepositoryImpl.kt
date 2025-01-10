@@ -56,15 +56,17 @@ class UserRepositoryImpl : UserRepository {
 
     override fun addDataToDatabase(
         userID: String,
-        userModel: UserTypeModel,
+        userModel: UserTypeModel?,
         callback: (Boolean, String) -> Unit
     ) {
-        reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "user Type Added")
-            }
-            else{
-                callback(false,it.exception?.message.toString())
+        if (userModel != null) {
+            reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
+                if(it.isSuccessful){
+                    callback(true, "user Type Added")
+                }
+                else{
+                    callback(false,it.exception?.message.toString())
+                }
             }
         }
     }

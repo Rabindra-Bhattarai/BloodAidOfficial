@@ -11,19 +11,21 @@ import com.google.firebase.database.ValueEventListener
 class OrganizationRepositoryImpl : OrganizationRepository{
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val reference: DatabaseReference =database.reference.child("Individual")
+    private val reference: DatabaseReference =database.reference.child("Organization")
 
     override fun addDataToDatabase(
         userID: String,
-        userModel: OrganizationModel,
+        userModel: OrganizationModel?,
         callback: (Boolean, String) -> Unit
     ) {
-        reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "Registration Successfully")
-            }
-            else{
-                callback(false,it.exception?.message.toString())
+        if (userModel != null) {
+            reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
+                if(it.isSuccessful){
+                    callback(true, "Registration Successfully")
+                }
+                else{
+                    callback(false,it.exception?.message.toString())
+                }
             }
         }
     }
