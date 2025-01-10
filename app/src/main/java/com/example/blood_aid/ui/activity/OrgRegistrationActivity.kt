@@ -19,7 +19,6 @@ class OrgRegistrationActivity : AppCompatActivity() {
 
     private lateinit var loadingUtils: LoadingUtils
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -82,9 +81,7 @@ class OrgRegistrationActivity : AppCompatActivity() {
                 address,
                 orgRegNumber,
                 false
-
             )
-
                 intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
                 intent.putExtra("UserData",model)
                 intent.putExtra("Type","ORG")
@@ -93,7 +90,6 @@ class OrgRegistrationActivity : AppCompatActivity() {
         }
     }
 
-    // Helper function to show Toast messages
     private fun showToast(message: String) {
         loadingUtils.dismiss()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
