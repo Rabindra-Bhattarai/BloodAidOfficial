@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "751636197583",
+    "firebase_url": "https://bloodaid-edfc8-default-rtdb.firebaseio.com",
+    "project_id": "bloodaid-edfc8",
+    "storage_bucket": "bloodaid-edfc8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751636197583:android:26d9cf1a18baa4111987ba",
+        "android_client_info": {
+          "package_name": "com.example.blood_aid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5H50pCD9d9GXS6f16QGWrg6FGhre5Nf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
