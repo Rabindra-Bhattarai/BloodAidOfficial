@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood-Aid"
+            android:text="Org"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -40,38 +40,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/centerContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginTop="32dp">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ngo"
-                    android:contentDescription="Organization Logo"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Organization Name"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="More items"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="10dp"/>
 
             <GridLayout
                 android:id="@+id/gridItems"
