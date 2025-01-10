@@ -88,6 +88,7 @@ class OrgRegistrationActivity : AppCompatActivity() {
                 intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
                 intent.putExtra("UserData",model)
                 intent.putExtra("Type","ORG")
+            loadingUtils.dismiss()
                 startActivity(intent)
         }
     }

@@ -32,6 +32,9 @@ class ConfirmPasswordActivity : AppCompatActivity() {
         binding = ActivityConfirmPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ContinueButton.setOnClickListener { submit() }
+        binding.BackButton.setOnClickListener { goBack() }
+
         type = intent.getStringExtra("Type").toString() ?: ""
         setupViewModels()
         setupUI()
@@ -77,11 +80,11 @@ class ConfirmPasswordActivity : AppCompatActivity() {
         val password = binding.etPassword.text.toString()
         if (type == "IND") {
             val userData = intent.getParcelableExtra<IndividualModel>("UserData")
-
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {
-                        individualViewModel.addDataToDatabase(userId, data) { success, message ->
+                        data.userId=userId
+                        individualViewModel.addDataToDatabase(data.userId, data) { success, message ->
                             showToast(message)
                             if (success) navigateTo(UserLoginActivity::class.java)
                         }
@@ -95,7 +98,8 @@ class ConfirmPasswordActivity : AppCompatActivity() {
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {
-                        orgViewModel.addDataToDatabase(userId, data) { success, message ->
+                        data.userId=userId
+                        orgViewModel.addDataToDatabase(data.userId, data) { success, message ->
                             showToast(message)
                             if (success) navigateTo(UserLoginActivity::class.java)
                         }
