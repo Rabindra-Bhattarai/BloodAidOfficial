@@ -16,15 +16,17 @@ class IndividualRepositoryImpl: IndividualRepository {
 
     override fun addDataToDatabase(
         userID: String,
-        userModel: IndividualModel,
+        userModel: IndividualModel?,
         callback: (Boolean, String) -> Unit
     ) {
-        reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "Registration Successfully")
-            }
-            else{
-                callback(false,it.exception?.message.toString())
+        if (userModel != null) {
+            reference.child(userModel.userId).setValue(userModel).addOnCompleteListener{
+                if(it.isSuccessful){
+                    callback(true, "Registration Successfully")
+                }
+                else{
+                    callback(false,it.exception?.message.toString())
+                }
             }
         }
     }

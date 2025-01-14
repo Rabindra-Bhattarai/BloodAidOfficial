@@ -3,7 +3,7 @@ package com.example.firebaselearn.utils
 import android.app.Activity
 import android.app.AlertDialog
 import android.widget.TextView
-import com.example.firebaselearn.R
+import com.example.blood_aid.R
 
 class LoadingUtils ( val activity: Activity){
     lateinit var alertDialog: AlertDialog

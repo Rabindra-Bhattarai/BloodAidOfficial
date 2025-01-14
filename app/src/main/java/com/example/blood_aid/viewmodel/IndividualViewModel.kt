@@ -5,7 +5,7 @@ import com.example.blood_aid.model.IndividualModel
 import com.example.blood_aid.repository.IndividualRepository
 
 class IndividualViewModel(val repo: IndividualRepository){
-    fun addDataToDatabase(userID:String, userModel: IndividualModel, callback: (Boolean, String) -> Unit){
+    fun addDataToDatabase(userID:String, userModel: IndividualModel?, callback: (Boolean, String) -> Unit){
         repo.addDataToDatabase(userID,userModel,callback)
     }
     var _userData= MutableLiveData<IndividualModel?>()

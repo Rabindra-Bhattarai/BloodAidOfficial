@@ -35,7 +35,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/orgName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
@@ -46,7 +46,7 @@
             android:padding="8dp" />
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/orgtEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
@@ -59,7 +59,7 @@
 
 
         <EditText
-            android:id="@+id/etPhoneNumber"
+            android:id="@+id/orgPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
@@ -70,7 +70,7 @@
             android:padding="8dp" />
 
         <AutoCompleteTextView
-            android:id="@+id/actAddress"
+            android:id="@+id/orgAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -80,7 +80,7 @@
             android:padding="12dp" />
 
         <EditText
-            android:id="@+id/etOrgRegNumber"
+            android:id="@+id/orgRegNumber"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
@@ -105,14 +105,14 @@
 
         <!-- Register Button -->
         <CheckBox
-            android:id="@+id/cbAgree"
+            android:id="@+id/orgAgree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="I agree to the terms and conditions" />
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/orgBtnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

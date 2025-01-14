@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:background="#FFFFFF">
 
     <LinearLayout
@@ -15,25 +16,25 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/logo"
-            android:contentDescription="App Logo"/>
+            android:contentDescription="App Logo"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
             android:text="Org"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomNav">
+        android:layout_above="@id/bottomNav"
+        android:layout_below="@id/topBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,9 +46,9 @@
                 android:id="@+id/gridItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:columnCount="3"
-                android:padding="10dp"
-                android:layout_marginTop="24dp">
+                android:padding="10dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
@@ -60,21 +61,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/pending"
-                            android:contentDescription="Pending"/>
+                            android:contentDescription="Pending"
+                            android:src="@drawable/pending" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pending"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="8dp"
+                            android:text="Pending" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -89,21 +90,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/approved"
-                            android:contentDescription="Approved"/>
+                            android:contentDescription="Approved"
+                            android:src="@drawable/approved" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Approved"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="8dp"
+                            android:text="Approved" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -118,21 +119,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/denied"
-                            android:contentDescription="Denied"/>
+                            android:contentDescription="Denied"
+                            android:src="@drawable/denied" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Denied"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="8dp"
+                            android:text="Denied" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
@@ -146,10 +147,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="16dp"
         android:background="@color/white"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -161,14 +162,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/homepage"
-                android:contentDescription="Home"/>
+                android:contentDescription="Home"
+                android:src="@drawable/homepage" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:text="Home" />
         </LinearLayout>
 
         <LinearLayout
@@ -181,14 +182,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/bell"
-                android:contentDescription="Notifications"/>
+                android:contentDescription="Notifications"
+                android:src="@drawable/bell" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:text="Notifications" />
         </LinearLayout>
 
         <LinearLayout
@@ -201,14 +202,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/profile"
-                android:contentDescription="Profile"/>
+                android:contentDescription="Profile"
+                android:src="@drawable/profile" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:text="Profile" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
