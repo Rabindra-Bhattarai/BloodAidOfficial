@@ -53,7 +53,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation ("com.airbnb.android:lottie:6.6.2")
-    implementation ("androidx.recyclerview:recyclerview:1.3.0")
-    implementation ("androidx.cardview:cardview:1.0.0")
+
 
 }
