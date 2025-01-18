@@ -85,7 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Select Blood Group"
-                    android:textColor="#666666"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     android:layout_marginBottom="8dp"/>
 
                 <Spinner
