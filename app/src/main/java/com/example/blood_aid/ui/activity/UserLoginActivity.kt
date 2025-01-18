@@ -11,6 +11,7 @@ import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.example.blood_aid.ui.activity.OrganizationDashActivity
+import com.example.blood_aid.viewmodel.IndividualViewModel
 
 class UserLoginActivity : AppCompatActivity() {
 
@@ -54,12 +55,6 @@ class UserLoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         userViewModel.login(email, password) { success, message ->
             if (success) {
-                val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("email", email)
-                editor.putBoolean("isLoggedIn", true)
-                editor.apply()
-                 // Navigate to Organization Dash activity
                 changePanel()
                 finish()
             } else {
@@ -69,18 +64,26 @@ class UserLoginActivity : AppCompatActivity() {
     }
 
     private fun changePanel(){
-        userViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString()){
-                data,success,message->
+        val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
+        val userid= userViewModel.getCurrentUser()?.uid.toString()
+        userViewModel.getDataFromDB(userid){
+            data,success,message-> val editor = sharedPreferences.edit()
+                editor.putString("uid", data.userId)
+                editor.putBoolean("isLogged", true)
+                editor.putString("Usertype", data.userType)
             if(data.userType == "AMDN"){
-                intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
+                val intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
                 startActivity(intent)
             }
             if(data.userType == "ORG"){
-                intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
+                val intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
                 startActivity(intent)
             }
-
-
+            if(data.userType == "IND"){
+                val intent=Intent(this@UserLoginActivity,UserDashActivity::class.java)
+                startActivity(intent)
+            }
+            editor.apply()
 
         }
     }
