@@ -22,7 +22,6 @@ class AdminDashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminDashBinding
     private lateinit var loadingUtils: LoadingUtils
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,31 +39,25 @@ class AdminDashActivity : AppCompatActivity() {
             insets
         }
     }
-    private fun replaceFragment(fragment : Fragment) {
-        val fragmentManager : FragmentManager =
-            supportFragmentManager
 
-        val fragmentTransaction : FragmentTransaction =
-            fragmentManager.beginTransaction()
-
-        fragmentTransaction.replace(R.id.frameLayout,fragment)
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
     }
 
-    private fun exit(){
-
-        val userViewModel=UserViewModel(UserRepositoryImpl())
-        userViewModel.logout(){
-            success,message->
-            if(success){
-                val sharedPreferences=getSharedPreferences("loginInfo",Context.MODE_PRIVATE)
+    private fun exit() {
+        val userViewModel = UserViewModel(UserRepositoryImpl())
+        userViewModel.logout { success, message ->
+            if (success) {
+                val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
                 sharedPreferences.edit().clear().apply()
-                startActivity(Intent(this@AdminDashActivity,SplashActivity::class.java))
+                startActivity(Intent(this@AdminDashActivity, SplashActivity::class.java))
                 finish()
-            }else{
-                Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
-    }
-
+}

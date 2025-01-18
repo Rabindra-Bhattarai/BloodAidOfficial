@@ -10,7 +10,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class IndividualRepositoryImpl: IndividualRepository {
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val reference: DatabaseReference =database.reference.child("Individual")
 
