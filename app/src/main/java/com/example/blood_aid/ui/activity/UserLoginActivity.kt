@@ -55,36 +55,34 @@ class UserLoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         userViewModel.login(email, password) { success, message ->
             if (success) {
-                changePanel()
-                finish()
+                Toast.makeText(this@UserLoginActivity,message,Toast.LENGTH_SHORT).show()
+                val userid= userViewModel.getCurrentUser()?.uid.toString()
+                userViewModel.getDataFromDB(userid){
+                        data,succes,messagee->
+                    if(succes){
+                        Toast.makeText(this@UserLoginActivity,messagee,Toast.LENGTH_SHORT).show()
+                        if(data.userType == "AMDN"){
+                            val intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
+                            startActivity(intent)
+                        }
+                        if(data.userType == "ORG"){
+                            val intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
+                            startActivity(intent)
+                        }
+                        if(data.userType == "IND"){
+                            val intent=Intent(this@UserLoginActivity,UserDashActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    else{
+                        Toast.makeText(this@UserLoginActivity,messagee,Toast.LENGTH_SHORT).show()
+                    }
+
+                }
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun changePanel(){
-        val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
-        val userid= userViewModel.getCurrentUser()?.uid.toString()
-        userViewModel.getDataFromDB(userid){
-            data,success,message-> val editor = sharedPreferences.edit()
-                editor.putString("uid", data.userId)
-                editor.putBoolean("isLogged", true)
-                editor.putString("Usertype", data.userType)
-            if(data.userType == "AMDN"){
-                val intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
-                startActivity(intent)
-            }
-            if(data.userType == "ORG"){
-                val intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
-                startActivity(intent)
-            }
-            if(data.userType == "IND"){
-                val intent=Intent(this@UserLoginActivity,UserDashActivity::class.java)
-                startActivity(intent)
-            }
-            editor.apply()
-
-        }
-    }
 }
