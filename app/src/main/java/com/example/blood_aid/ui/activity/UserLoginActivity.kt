@@ -59,15 +59,29 @@ class UserLoginActivity : AppCompatActivity() {
                 editor.putString("email", email)
                 editor.putBoolean("isLoggedIn", true)
                 editor.apply()
-
-                Toast.makeText(this, "LoggedIn", Toast.LENGTH_SHORT).show()
-
-                // Navigate to Organization Dash activity
-                startActivity(Intent(this, OrganizationDashActivity::class.java))
+                 // Navigate to Organization Dash activity
+                changePanel()
                 finish()
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun changePanel(){
+        userViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString()){
+                data,success,message->
+            if(data.userType == "AMDN"){
+                intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
+                startActivity(intent)
+            }
+            if(data.userType == "ORG"){
+                intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
+                startActivity(intent)
+            }
+
+
+
         }
     }
 }
