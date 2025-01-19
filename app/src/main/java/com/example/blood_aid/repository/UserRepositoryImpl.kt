@@ -76,20 +76,20 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun getDataFromDB(userID: String, callback: (UserTypeModel?, Boolean, String) -> Unit) {
-        reference.child(userID).addValueEventListener( // continuoutsly refreshes
-            object: ValueEventListener {  //hover garne and implement members
+        reference.child(userID)
+            .addValueEventListener(object:ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()){
-                        val model= snapshot.getValue(UserTypeModel::class.java)
-                        callback(model,true,"Details fetched successfully")
+                    if(snapshot.exists()){
+                        var model = snapshot.getValue(UserTypeModel::class.java)
+                        callback(model,true,"Data fetched")
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    callback(null,false,error.message)
+                    callback(null,false,error.message.toString())
                 }
-            } //makes anonymus function
-        )
+
+            })
     }
 
     override fun logout(callback: (Boolean, String) -> Unit) {
