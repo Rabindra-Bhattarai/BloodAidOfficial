@@ -16,55 +16,99 @@
 
         <TextView
             android:id="@+id/text_view_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:"
             android:textColor="@color/red"
             android:textStyle="bold"
+            tools:text="Name:"
             app:layout_constraintBottom_toTopOf="@+id/text_view_address"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_view_address"
+            android:id="@+id/text_view_name_detail"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="John"
+            android:textColor="@android:color/black"
+            tools:text="John"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_address"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/text_view_name"
+            app:layout_constraintTop_toTopOf="@+id/text_view_name" />
+
+        <TextView
+            android:id="@+id/text_view_address"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Address:"
             android:textColor="@color/red"
             android:textStyle="bold"
+            tools:text="Address:"
             app:layout_constraintBottom_toTopOf="@+id/text_view_email"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
 
         <TextView
-            android:id="@+id/text_view_email"
+            android:id="@+id/text_view_address_detail"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1234 Elm Street"
+            android:textColor="@android:color/black"
+            tools:text="1234 Elm Street"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_email"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/text_view_address"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_name_detail" />
+
+        <TextView
+            android:id="@+id/text_view_email"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email:"
             android:textColor="@color/red"
             android:textStyle="bold"
+            tools:text="Email:"
             app:layout_constraintBottom_toTopOf="@+id/text_view_registration_no"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_address" />
 
         <TextView
-            android:id="@+id/text_view_registration_no"
+            android:id="@+id/text_view_email_detail"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="johndoe@example.com"
+            android:textColor="@android:color/black"
+            tools:text="johndoe@example.com"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_registration_no"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/text_view_email"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_address_detail" />
+
+        <TextView
+            android:id="@+id/text_view_registration_no"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registration no:"
             android:textColor="@color/red"
             android:textStyle="bold"
+            tools:text="Registration no:"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_email" />
+
+        <TextView
+            android:id="@+id/text_view_registration_no_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="REG123456"
+            android:textColor="@android:color/black"
+            tools:text="REG123456"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/text_view_registration_no"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_email_detail" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -72,6 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Enabled"
+            tools:checked="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
