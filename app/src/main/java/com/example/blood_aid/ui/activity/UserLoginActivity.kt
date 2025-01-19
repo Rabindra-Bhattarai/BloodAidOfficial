@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.blood_aid.R
 import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.viewmodel.UserViewModel
@@ -55,34 +56,41 @@ class UserLoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         userViewModel.login(email, password) { success, message ->
             if (success) {
-                Toast.makeText(this@UserLoginActivity,message,Toast.LENGTH_SHORT).show()
-                val userid= userViewModel.getCurrentUser()?.uid.toString()
-                userViewModel.getDataFromDB(userid){
-                        data,succes,messagee->
-                    if(succes){
-                        Toast.makeText(this@UserLoginActivity,messagee,Toast.LENGTH_SHORT).show()
-                        if(data.userType == "AMDN"){
-                            val intent=Intent(this@UserLoginActivity,AdminDashActivity::class.java)
-                            startActivity(intent)
-                        }
-                        if(data.userType == "ORG"){
-                            val intent=Intent(this@UserLoginActivity,OrganizationDashActivity::class.java)
-                            startActivity(intent)
-                        }
-                        if(data.userType == "IND"){
-                            val intent=Intent(this@UserLoginActivity,UserDashActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                    else{
-                        Toast.makeText(this@UserLoginActivity,messagee,Toast.LENGTH_SHORT).show()
-                    }
+                Toast.makeText(this@UserLoginActivity, message, Toast.LENGTH_SHORT).show()
 
+                val userId = userViewModel.getCurrentUser()?.uid.toString()
+
+                userViewModel.getDataFromDB(userId) { data, dataSuccess, dataMessage ->
+                    if (dataSuccess) {
+                        Toast.makeText(this@UserLoginActivity, dataMessage, Toast.LENGTH_SHORT).show()
+
+                        when (data.userType) {
+                            "ADMN" -> {
+                                val intent = Intent(this@UserLoginActivity, AdminDashActivity::class.java)
+                                startActivity(intent)
+                            }
+                            "ORG" -> {
+                                val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
+                                startActivity(intent)
+                            }
+                            "IND" -> {
+                                val intent = Intent(this@UserLoginActivity, UserDashActivity::class.java)
+                                startActivity(intent)
+                            }
+                            else -> {
+                                Toast.makeText(this@UserLoginActivity, "Unknown user type", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this@UserLoginActivity, dataMessage, Toast.LENGTH_SHORT).show()
+                    }
                 }
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+
 
 }
