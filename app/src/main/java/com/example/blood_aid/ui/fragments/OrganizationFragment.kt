@@ -1,60 +1,79 @@
 package com.example.blood_aid.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.blood_aid.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.blood_aid.adapter.OrgAdminAdapter
+import com.example.blood_aid.databinding.FragmentOrganizationBinding
+import com.example.blood_aid.model.OrganizationModel
+import com.example.blood_aid.repository.AdminRepositoryImpl
+import com.example.blood_aid.viewmodel.AdminViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [OrganizationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OrganizationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentOrganizationBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adminViewModel: AdminViewModel
+    private lateinit var orgAdminAdapter: OrgAdminAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_organization, container, false)
+    ): View {
+        _binding = FragmentOrganizationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OrganizationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            OrganizationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adminViewModel = AdminViewModel(AdminRepositoryImpl())
+
+        setupRecyclerView()
+        fetchOrganizations()
+    }
+
+    private fun setupRecyclerView() {
+        orgAdminAdapter = OrgAdminAdapter(requireContext(), emptyList()) { userId, isEnabled ->
+            adminViewModel.updateOrganization(userId, isEnabled) { success, message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.orgsAdmnRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.orgsAdmnRecycler.adapter = orgAdminAdapter
+    }
+
+    private fun fetchOrganizations() {
+        adminViewModel.fetchOrganizations { orgList, success, message ->
+            if (success) {
+                Log.d("OrganizationFragment", "Fetched ${orgList.size} organizations")
+                orgAdminAdapter.updateData(orgList)
+            } else {
+                Log.e("OrganizationFragment", "Error fetching organizations: $message")
+                Toast.makeText(
+                    requireContext(),
+                    "Error fetching data. Retrying in 10 seconds.",
+                    Toast.LENGTH_LONG
+                ).show()
+                retryFetchingOrganizations()
+            }
+        }
+    }
+
+    private fun retryFetchingOrganizations() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            fetchOrganizations()
+        }, 10000)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

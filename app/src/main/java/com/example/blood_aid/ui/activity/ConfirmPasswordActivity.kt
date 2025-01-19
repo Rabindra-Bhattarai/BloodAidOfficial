@@ -11,8 +11,10 @@ import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityConfirmPasswordBinding
 import com.example.blood_aid.model.IndividualModel
 import com.example.blood_aid.model.OrganizationModel
+import com.example.blood_aid.model.UserTypeModel
 import com.example.blood_aid.repository.IndividualRepositoryImpl
 import com.example.blood_aid.repository.OrganizationRepositoryImpl
+import com.example.blood_aid.repository.UserRepository
 import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.viewmodel.IndividualViewModel
 import com.example.blood_aid.viewmodel.OrganizationViewModel
@@ -83,10 +85,23 @@ class ConfirmPasswordActivity : AppCompatActivity() {
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {
-                        data.userId=userId
-                        individualViewModel.addDataToDatabase(data.userId, data) { success, message ->
+                        data.userId = userId
+                        individualViewModel.addDataToDatabase(
+                            data.userId,
+                            data
+                        ) { success, message ->
                             showToast(message)
-                            if (success) navigateTo(UserLoginActivity::class.java)
+                            if (success) {
+                                val typeV = UserTypeModel(data.userId, type)
+                                val userViewModel = UserViewModel(UserRepositoryImpl())
+                                userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
+                                    if (isdone) {
+                                        navigateTo(UserLoginActivity::class.java)
+                                        showToast(message)
+                                    }
+                                }
+
+                            }
                         }
                     } else {
                         showToast(message)
@@ -98,33 +113,41 @@ class ConfirmPasswordActivity : AppCompatActivity() {
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {
-                        data.userId=userId
-                        orgViewModel.addDataToDatabase(data.userId, data) { success, message ->
-                            showToast(message)
-                            if (success) navigateTo(UserLoginActivity::class.java)
+                        val typeV = UserTypeModel(data.userId, type)
+                        val userViewModel = UserViewModel(UserRepositoryImpl())
+                        userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
+                            if (isdone) {
+                                navigateTo(UserLoginActivity::class.java)
+                                showToast(message)
+                            }
                         }
-                    } else {
-                        showToast(message)
+
                     }
-                }
+
+            else {
+                showToast(message)
+            }}}
+        }
+
+
+        }
+
+
+        private fun goBack() {
+            val intent = when (type) {
+                "Org" -> Intent(this, OrgRegistrationActivity::class.java)
+                "IND" -> Intent(this, NewRegistrationActivity::class.java)
+                else -> Intent(this, StartActivity::class.java)
             }
+            startActivity(intent)
+        }
+
+        private fun showToast(message: String) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+
+        private fun <T> navigateTo(activity: Class<T>) {
+            startActivity(Intent(this, activity))
         }
     }
 
-    private fun goBack() {
-        val intent = when (type) {
-            "Org" -> Intent(this, OrgRegistrationActivity::class.java)
-            "IND" -> Intent(this, NewRegistrationActivity::class.java)
-            else -> Intent(this, StartActivity::class.java)
-        }
-        startActivity(intent)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun <T> navigateTo(activity: Class<T>) {
-        startActivity(Intent(this, activity))
-    }
-}

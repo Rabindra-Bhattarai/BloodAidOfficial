@@ -12,7 +12,6 @@ import com.example.blood_aid.databinding.ActivityStartBinding
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding  // declaring binder
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,7 +29,6 @@ class StartActivity : AppCompatActivity() {
             val intent=Intent(this@StartActivity,UserLoginActivity::class.java)
             startActivity(intent)
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

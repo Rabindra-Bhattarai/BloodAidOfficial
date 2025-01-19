@@ -18,7 +18,7 @@
             android:id="@+id/text_view_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Name: "
+            android:text="Name:"
             android:textColor="@color/red"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_view_address"
@@ -45,10 +45,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Email:"
-            android:textStyle="bold"
             android:textColor="@color/red"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_view_registration_no"
             app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_address" />
 
@@ -57,10 +58,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Registration no:"
-            android:textStyle="bold"
             android:textColor="@color/red"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_email" />
 
@@ -73,7 +75,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.633" />
+            app:layout_constraintVertical_bias="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

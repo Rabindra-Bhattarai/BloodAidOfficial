@@ -4,24 +4,23 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class OrganizationModel(
-    var userId:String= "",
-    var fullName:String="",
-    var email:String="",
-    var phoneNumber:String="",
-    var address:String="",
-    var registrationNumber:String="",
-    var enabled:Boolean=false
-):Parcelable {
+    var userId: String = "",
+    var fullName: String = "",
+    var email: String = "",
+    var phoneNumber: String = "",
+    var address: String = "",
+    var registrationNumber: String = "",
+    var enabled: Boolean = false
+): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString()?:"",
-        parcel.readString().toString()?:"",
-        parcel.readString().toString()?:"",
-        parcel.readString().toString()?:"",
-        parcel.readString().toString()?:"",
-        parcel.readString().toString()?:"",
-        parcel.readByte() != 0.toByte(),
-    ) {
-    }
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readByte() != 0.toByte()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userId)
@@ -46,5 +45,4 @@ data class OrganizationModel(
             return arrayOfNulls(size)
         }
     }
-
 }
