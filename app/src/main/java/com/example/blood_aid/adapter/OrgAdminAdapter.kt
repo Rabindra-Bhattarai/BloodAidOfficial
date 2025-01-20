@@ -1,20 +1,21 @@
 package com.example.blood_aid.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blood_aid.R
 import com.example.blood_aid.model.OrganizationModel
+import com.example.blood_aid.viewmodel.AdminViewModel
 
 class OrgAdminAdapter(
     private val context: Context,
     private var orgList: List<OrganizationModel>,
-    private val onCheckedChanged: (String, Boolean) -> Unit
+    private val viewModel: AdminViewModel
 ) : RecyclerView.Adapter<OrgAdminAdapter.OrgViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrgViewHolder {
@@ -33,19 +34,27 @@ class OrgAdminAdapter(
         holder.email.text = organization.email
         holder.registrationNo.text = organization.registrationNumber
         holder.enabled.isChecked = organization.enabled
-        holder.enabled.setOnCheckedChangeListener(null) // Avoid unwanted triggers during recycling
+
+        // Avoid unwanted triggers during recycling
+        holder.enabled.setOnCheckedChangeListener(null)
+
+        // Set checked change listener with Toast messages and update call
         holder.enabled.setOnCheckedChangeListener { _, isChecked ->
             organization.enabled = isChecked
-            onCheckedChanged(organization.userId, isChecked)
+            viewModel.updateOrganization(organization.userId, isChecked) { success, message ->
+                if (success) {
+                    Toast.makeText(context, "Updated: ${organization.fullName}", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Update failed: $message", Toast.LENGTH_SHORT).show()
+                }
+            }
+            Toast.makeText(context, if (isChecked) "Checked" else "Unchecked", Toast.LENGTH_SHORT).show()
         }
-
-        Log.d("OrgAdminAdapter", "Bound organization: ${organization.fullName}")
     }
 
     fun updateData(newOrgList: List<OrganizationModel>) {
         orgList = newOrgList
         notifyDataSetChanged()
-        Log.d("OrgAdminAdapter", "Adapter data updated with ${newOrgList.size} organizations")
     }
 
     class OrgViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

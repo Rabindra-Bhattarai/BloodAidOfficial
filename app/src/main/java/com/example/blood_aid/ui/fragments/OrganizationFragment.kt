@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blood_aid.adapter.OrgAdminAdapter
 import com.example.blood_aid.databinding.FragmentOrganizationBinding
-import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.repository.AdminRepositoryImpl
 import com.example.blood_aid.viewmodel.AdminViewModel
 
@@ -40,11 +40,7 @@ class OrganizationFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        orgAdminAdapter = OrgAdminAdapter(requireContext(), emptyList()) { userId, isEnabled ->
-            adminViewModel.updateOrganization(userId, isEnabled) { success, message ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            }
-        }
+        orgAdminAdapter = OrgAdminAdapter(requireContext(), emptyList(), adminViewModel)
         binding.orgsAdmnRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.orgsAdmnRecycler.adapter = orgAdminAdapter
     }
@@ -61,8 +57,15 @@ class OrganizationFragment : Fragment() {
                     "Error fetching data. Retrying in 10 seconds.",
                     Toast.LENGTH_LONG
                 ).show()
+                retryFetchingOrganizations()
             }
         }
+    }
+
+    private fun retryFetchingOrganizations() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            fetchOrganizations()
+        }, 10000)
     }
 
     override fun onDestroyView() {
