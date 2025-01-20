@@ -61,15 +61,8 @@ class OrganizationFragment : Fragment() {
                     "Error fetching data. Retrying in 10 seconds.",
                     Toast.LENGTH_LONG
                 ).show()
-                retryFetchingOrganizations()
             }
         }
-    }
-
-    private fun retryFetchingOrganizations() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            fetchOrganizations()
-        }, 10000)
     }
 
     override fun onDestroyView() {

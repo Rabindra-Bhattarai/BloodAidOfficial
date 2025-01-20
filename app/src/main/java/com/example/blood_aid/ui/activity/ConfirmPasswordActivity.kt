@@ -82,56 +82,51 @@ class ConfirmPasswordActivity : AppCompatActivity() {
         val password = binding.etPassword.text.toString()
         if (type == "IND") {
             val userData = intent.getParcelableExtra<IndividualModel>("UserData")
-            userData?.let { data ->
-                mainViewModel.signup(data.email, password) { success, message, userId ->
-                    if (success) {
-                        data.userId = userId
-                        individualViewModel.addDataToDatabase(
-                            data.userId,
-                            data
-                        ) { success, message ->
-                            showToast(message)
-                            if (success) {
-                                val typeV = UserTypeModel(data.userId, type)
-                                val userViewModel = UserViewModel(UserRepositoryImpl())
-                                userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
-                                    if (isdone) {
-                                        navigateTo(UserLoginActivity::class.java)
-                                        showToast(message)
-                                    }
-                                }
-
-                            }
-                        }
-                    } else {
+            mainViewModel.signup(userData?.email.toString(), password) { success, message, userId ->
+                if (success) {
+                    userData?.userId = userId
+                    individualViewModel.addDataToDatabase(
+                        userData?.userId ?: "",
+                        userData
+                    ) { success, message ->
                         showToast(message)
+                        if (success) {
+                            val typeV = UserTypeModel(userId, type)
+                            val userViewModel = UserViewModel(UserRepositoryImpl())
+                            userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
+                                if (isdone) {
+                                    navigateTo(UserLoginActivity::class.java)
+                                    showToast(message)
+                                }
+                            }
+
+
+                        } else {
+                            showToast(message)
+                        }
                     }
                 }
             }
-        } else if (type == "ORG") {
-            val userData = intent.getParcelableExtra<OrganizationModel>("UserData")
-            userData?.let { data ->
-                mainViewModel.signup(data.email, password) { success, message, userId ->
-                    if (success) {
-                        val typeV = UserTypeModel(data.userId, type)
-                        val userViewModel = UserViewModel(UserRepositoryImpl())
-                        userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
-                            if (isdone) {
-                                navigateTo(UserLoginActivity::class.java)
-                                showToast(message)
+            } else if (type == "ORG") {
+                val userData = intent.getParcelableExtra<OrganizationModel>("UserData")
+                    mainViewModel.signup(userData?.email.toString(), password) { success, message, userId ->
+                        if (success) {
+                            val typeV = UserTypeModel(userData?.userId.toString(), type)
+                            val userViewModel = UserViewModel(UserRepositoryImpl())
+                            userViewModel.addDataToDatabase(userId, typeV) { isdone, error ->
+                                if (isdone) {
+                                    navigateTo(UserLoginActivity::class.java)
+                                    showToast(message)
+                                }
                             }
+
+                        } else {
+                            showToast(message)
                         }
-
                     }
+                }
 
-            else {
-                showToast(message)
-            }}}
-        }
-
-
-        }
-
+    }
 
         private fun goBack() {
             val intent = when (type) {

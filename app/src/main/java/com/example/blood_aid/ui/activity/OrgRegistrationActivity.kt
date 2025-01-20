@@ -82,7 +82,7 @@ class OrgRegistrationActivity : AppCompatActivity() {
                 orgRegNumber,
                 false
             )
-                intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
+                val intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
                 intent.putExtra("UserData",model)
                 intent.putExtra("Type","ORG")
             loadingUtils.dismiss()

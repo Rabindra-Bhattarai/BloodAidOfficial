@@ -33,7 +33,6 @@ class OrgAdminAdapter(
         holder.email.text = organization.email
         holder.registrationNo.text = organization.registrationNumber
         holder.enabled.isChecked = organization.enabled
-
         holder.enabled.setOnCheckedChangeListener(null) // Avoid unwanted triggers during recycling
         holder.enabled.setOnCheckedChangeListener { _, isChecked ->
             organization.enabled = isChecked
@@ -50,10 +49,10 @@ class OrgAdminAdapter(
     }
 
     class OrgViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.text_view_name)
-        val address: TextView = itemView.findViewById(R.id.text_view_address)
-        val email: TextView = itemView.findViewById(R.id.text_view_email)
-        val registrationNo: TextView = itemView.findViewById(R.id.text_view_registration_no)
+        val name: TextView = itemView.findViewById(R.id.text_view_name_detail)
+        val address: TextView = itemView.findViewById(R.id.text_view_address_detail)
+        val email: TextView = itemView.findViewById(R.id.text_view_email_detail)
+        val registrationNo: TextView = itemView.findViewById(R.id.text_view_registration_no_detail)
         val enabled: CheckBox = itemView.findViewById(R.id.checkBox)
     }
 }

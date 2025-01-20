@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityAdminDashBinding
 import com.example.blood_aid.repository.UserRepositoryImpl
+import com.example.blood_aid.ui.fragments.ConformFragment
 import com.example.blood_aid.ui.fragments.OrganizationFragment
 import com.example.blood_aid.viewmodel.UserViewModel
 import com.example.firebaselearn.utils.LoadingUtils
@@ -31,6 +32,25 @@ class AdminDashActivity : AppCompatActivity() {
         loadingUtils= LoadingUtils(this@AdminDashActivity)
         setContentView(binding.root)
         replaceFragment(OrganizationFragment())
+        binding.btnOrg.setOnClickListener{
+            replaceFragment(OrganizationFragment())
+        }
+        binding.btnPass.setOnClickListener{
+            replaceFragment(ConformFragment())
+        }
+        binding.btnLog.setOnClickListener {
+            val userViewModel= UserViewModel(UserRepositoryImpl())
+            userViewModel.logout(){
+                success,message->
+                if(success){
+                    startActivity(Intent(this@AdminDashActivity, MainActivity::class.java))
+                    finish()
+                }
+                else{
+                    Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         // Handle edge-to-edge insets
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
