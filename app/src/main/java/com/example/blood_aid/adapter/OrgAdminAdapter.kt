@@ -52,9 +52,11 @@ class OrgAdminAdapter(
         }
     }
 
-    fun updateData(newOrgList: ArrayList<OrganizationModel>) {
+    fun updateData(newOrgList: List<OrganizationModel>?) {
         orgList.clear()
-        orgList = newOrgList
+        if (newOrgList != null) {
+            orgList.addAll(newOrgList)
+        }
         notifyDataSetChanged()
     }
 

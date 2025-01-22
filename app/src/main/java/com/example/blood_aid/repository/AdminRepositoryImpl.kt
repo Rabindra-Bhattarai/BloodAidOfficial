@@ -1,34 +1,33 @@
 package com.example.blood_aid.repository
 
-import android.util.Log
 import com.example.blood_aid.model.OrganizationModel
 import com.google.firebase.database.*
 
 class AdminRepositoryImpl : AdminRepository {
-    private val reference: DatabaseReference =
-        FirebaseDatabase.getInstance().reference.child("Organization")
+    private val database = FirebaseDatabase.getInstance().reference.child("Organization")
 
     override fun updateOrganization(
-        userID: String,
-        isEnabled: Boolean,
-        callback: (Boolean, String) -> Unit
+        userID: String, isEnabled: Boolean, callback: (Boolean, String) -> Unit
     ) {
-        reference.child(userID).child("enabled").setValue(isEnabled)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    callback(true, "Organization updated successfully")
-                } else {
-                    callback(false, "Update failed: ${task.exception?.message}")
-                }
+        database.child(userID).child("enabled").setValue(isEnabled).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Organization updated successfully")
+            } else {
+                callback(false, it.exception?.message ?: "Error updating organization")
             }
+        }
     }
 
     override fun fetchOrganizations(callback: (List<OrganizationModel>, Boolean, String) -> Unit) {
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            var organizations= mutableListOf<OrganizationModel>()
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val organizations = snapshot.children.mapNotNull {
-                        it.getValue(OrganizationModel::class.java)
+                    for(eachProduct in snapshot.children){
+                        var model = eachProduct.getValue(OrganizationModel::class.java)
+                        if(model != null){
+                            organizations.add(model)
+                        }
                     }
                     callback(organizations, true, "Organizations fetched successfully")
                 } else {

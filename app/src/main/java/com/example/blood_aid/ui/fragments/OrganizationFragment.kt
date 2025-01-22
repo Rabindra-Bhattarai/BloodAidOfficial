@@ -18,8 +18,7 @@ import com.example.blood_aid.viewmodel.AdminViewModel
 
 class OrganizationFragment : Fragment() {
 
-    private var _binding: FragmentOrganizationBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentOrganizationBinding
     private lateinit var adminViewModel: AdminViewModel
     private lateinit var orgAdminAdapter: OrgAdminAdapter
 
@@ -27,39 +26,38 @@ class OrganizationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOrganizationBinding.inflate(inflater, container, false)
+        binding = FragmentOrganizationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adminViewModel = AdminViewModel(AdminRepositoryImpl())
-
         setupRecyclerView()
+        observeViewModel()
         fetchOrganizations()
     }
 
     private fun setupRecyclerView() {
-        orgAdminAdapter = OrgAdminAdapter(requireContext(), emptyList(), adminViewModel)
+        orgAdminAdapter = OrgAdminAdapter(requireContext(), arrayListOf(), adminViewModel)
         binding.orgsAdmnRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.orgsAdmnRecycler.adapter = orgAdminAdapter
     }
 
-    private fun fetchOrganizations() {
-        adminViewModel.fetchOrganizations { orgList, success, message ->
-            if (success) {
-                Log.d("OrganizationFragment", "Fetched ${orgList.size} organizations")
-                orgAdminAdapter.updateData(orgList)
-            } else {
-                Log.e("OrganizationFragment", "Error fetching organizations: $message")
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching data. Retrying in 10 seconds.",
-                    Toast.LENGTH_LONG
-                ).show()
-                retryFetchingOrganizations()
+    private fun observeViewModel() {
+        adminViewModel.allOrg.observe(viewLifecycleOwner) { product ->
+            product?.let {
+                orgAdminAdapter.updateData(it)
             }
         }
+
+        adminViewModel.loadingState.observe(viewLifecycleOwner) { isLoading ->
+            Toast.makeText(requireContext(), if (isLoading) "Loading..." else "Loaded", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun fetchOrganizations() {
+        adminViewModel.fetchOrganizations()
     }
 
     private fun retryFetchingOrganizations() {
@@ -70,6 +68,5 @@ class OrganizationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }
