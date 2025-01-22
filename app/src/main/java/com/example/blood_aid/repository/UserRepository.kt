@@ -9,6 +9,6 @@ interface UserRepository {
     fun login(email:String,password:String,callback:(Boolean,String)->Unit)
     fun signup(email:String,password:String,callback: (Boolean, String, String) -> Unit)
     fun forgetPassword(email:String,callback: (Boolean, String) -> Unit)
-    fun getDataFromDB(userID: String,callback: (UserTypeModel?,Boolean, String) -> Unit)
+    fun getDataFromDB(userID: String, callback: (String) -> Unit)
     fun logout(callback: (Boolean, String) -> Unit)
 }

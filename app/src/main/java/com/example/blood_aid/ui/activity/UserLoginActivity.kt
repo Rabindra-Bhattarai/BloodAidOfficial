@@ -1,18 +1,14 @@
 package com.example.blood_aid.ui.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.blood_aid.R
 import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.example.blood_aid.ui.activity.OrganizationDashActivity
-import com.example.blood_aid.viewmodel.IndividualViewModel
 
 class UserLoginActivity : AppCompatActivity() {
 
@@ -30,10 +26,12 @@ class UserLoginActivity : AppCompatActivity() {
         signInButton = findViewById(R.id.signInButton)
 
         userViewModel = UserViewModel(UserRepositoryImpl())
+
         signInButton.setOnClickListener {
             validateAndLogin()
         }
     }
+
     private fun validateAndLogin() {
         val email = donorIdInput.text.toString().trim()
         val password = passwordInput.text.toString().trim()
@@ -49,48 +47,45 @@ class UserLoginActivity : AppCompatActivity() {
             passwordInput.requestFocus()
             return
         }
-
         loginUser(email, password)
     }
 
     private fun loginUser(email: String, password: String) {
         userViewModel.login(email, password) { success, message ->
             if (success) {
-                Toast.makeText(this@UserLoginActivity, message, Toast.LENGTH_SHORT).show()
-
                 val userId = userViewModel.getCurrentUser()?.uid.toString()
+                Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
 
-                userViewModel.getDataFromDB(userId) { data, dataSuccess, dataMessage ->
-                    if (dataSuccess) {
-                        Toast.makeText(this@UserLoginActivity, dataMessage, Toast.LENGTH_SHORT).show()
-
-                        when (data.userType) {
-                            "ADMN" -> {
-                                val intent = Intent(this@UserLoginActivity, AdminDashActivity::class.java)
-                                startActivity(intent)
-                            }
-                            "ORG" -> {
-                                val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
-                                startActivity(intent)
-                            }
-                            "IND" -> {
-                                val intent = Intent(this@UserLoginActivity, UserDashActivity::class.java)
-                                startActivity(intent)
-                            }
-                            else -> {
-                                Toast.makeText(this@UserLoginActivity, "Unknown user type", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                userViewModel.getDataFromDB(userId) { type ->
+                    if (type != "ERROR") {
+                        navigateToDashboard(type)
                     } else {
-                        Toast.makeText(this@UserLoginActivity, dataMessage, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Failed to fetch user type.", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
-                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login failed: $message", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-
-
+    private fun navigateToDashboard(userType: String?) {
+        when (userType) {
+            "ADMN" -> {
+                startActivity(Intent(this, AdminDashActivity::class.java))
+                finish()
+            }
+            "ORG" -> {
+                startActivity(Intent(this, OrganizationDashActivity::class.java))
+                finish()
+            }
+            "IND" -> {
+                startActivity(Intent(this, UserDashActivity::class.java))
+                finish()
+            }
+            else -> {
+                Toast.makeText(this, "Unknown user type: $userType", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
