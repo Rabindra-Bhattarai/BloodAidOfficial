@@ -14,7 +14,7 @@ import com.example.blood_aid.viewmodel.AdminViewModel
 
 class OrgAdminAdapter(
     private val context: Context,
-    private var orgList: List<OrganizationModel>,
+    private var orgList: ArrayList<OrganizationModel>,
     private val viewModel: AdminViewModel
 ) : RecyclerView.Adapter<OrgAdminAdapter.OrgViewHolder>() {
 
@@ -52,7 +52,8 @@ class OrgAdminAdapter(
         }
     }
 
-    fun updateData(newOrgList: List<OrganizationModel>) {
+    fun updateData(newOrgList: ArrayList<OrganizationModel>) {
+        orgList.clear()
         orgList = newOrgList
         notifyDataSetChanged()
     }
