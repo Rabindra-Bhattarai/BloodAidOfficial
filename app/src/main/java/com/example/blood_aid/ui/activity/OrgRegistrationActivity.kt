@@ -80,7 +80,8 @@ class OrgRegistrationActivity : AppCompatActivity() {
                 phoneNumber,
                 address,
                 orgRegNumber,
-                false
+                false,
+                0
             )
                 val intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
                 intent.putExtra("UserData",model)

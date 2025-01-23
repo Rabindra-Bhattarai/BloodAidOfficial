@@ -36,7 +36,7 @@ class ConfirmPasswordActivity : AppCompatActivity() {
         binding.ContinueButton.setOnClickListener { submit() }
         binding.BackButton.setOnClickListener { goBack() }
 
-        type = intent.getStringExtra("Type").toString() ?: ""
+        type = intent.getStringExtra("Type").toString()
         setupViewModels()
         setupUI()
     }
@@ -80,7 +80,7 @@ class ConfirmPasswordActivity : AppCompatActivity() {
     private fun handleSignUp() {
         val password = binding.etPassword.text.toString()
         if (type == "IND") {
-            val userData = intent.getParcelableExtra<IndividualModel>("UserData")
+            val userData : IndividualModel?= intent.getParcelableExtra("UserData")
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {

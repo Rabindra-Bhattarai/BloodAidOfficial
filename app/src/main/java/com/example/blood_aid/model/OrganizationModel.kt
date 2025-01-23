@@ -11,6 +11,7 @@ data class OrganizationModel(
     var address: String = "",
     var registrationNumber: String = "",
     var enabled: Boolean = false,
+    var noOFTimesHosted:Int=0
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -20,6 +21,7 @@ data class OrganizationModel(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte(),
+        parcel.readInt()?:0
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

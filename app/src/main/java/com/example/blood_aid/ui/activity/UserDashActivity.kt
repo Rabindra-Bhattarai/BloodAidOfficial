@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser
 class UserDashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDashBinding
     private lateinit var userViewModel: UserViewModel
+    private val uid= intent.getStringExtra("uid").toString()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,9 @@ class UserDashActivity : AppCompatActivity() {
 
         binding.profileNav.setOnClickListener {
             val intent = Intent(this@UserDashActivity,UserProfileActivity::class.java)
+            intent.putExtra("uid",uid)
             startActivity(intent)
+            finish()
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

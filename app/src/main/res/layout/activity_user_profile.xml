@@ -74,7 +74,9 @@
                     android:text="Gender"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/usr_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
@@ -103,7 +105,9 @@
                     android:text="Blood Group"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/bld_Grp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="O+"
@@ -132,7 +136,9 @@
                     android:text="Email"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="username@example.com"
@@ -161,7 +167,9 @@
                     android:text="Phone"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/usr_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+977 9845678900"
@@ -190,7 +198,9 @@
                     android:text="Address"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/adress_usr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="kathmandu"
@@ -219,7 +229,9 @@
                     android:text="Citizenship"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/citizenshipNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nepali"
@@ -248,7 +260,9 @@
                     android:text="Times Donated"
                     android:textColor="#7A7A7A"
                     android:textSize="14sp" />
+
                 <TextView
+                    android:id="@+id/noOfTimeDonated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"

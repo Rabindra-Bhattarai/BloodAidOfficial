@@ -11,7 +11,7 @@ class IndividualViewModel(val repo: IndividualRepository){
     var _userData= MutableLiveData<IndividualModel?>()
     var userData= MutableLiveData<IndividualModel?>() //getter
         get() = _userData
-    fun getDataFromDB(userID: String,callback: (IndividualModel?, Boolean, String) -> Unit){
+    fun getDataFromDB(userID: String){
         repo.getDataFromDB(userID){
                 userModel,success,message->
             if(success){

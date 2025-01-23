@@ -17,12 +17,9 @@ import com.example.firebaselearn.utils.LoadingUtils
 
 class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityNewRegistrationBinding
-
     private lateinit var bloodGroup: String
     private var gender: String = "Male"
-
     private lateinit var loadingUtils: LoadingUtils
-
     private val bloods = arrayOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +57,8 @@ class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedL
                 address,
                 citizenship,
                 bloodGroup,
-                gender
+                gender,
+                0
             )
             if (binding.cbTerms.isChecked) {
                 val intent = Intent(this@NewRegistrationActivity, ConfirmPasswordActivity::class.java)

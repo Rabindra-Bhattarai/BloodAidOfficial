@@ -11,7 +11,8 @@ data class IndividualModel (
     var address:String="",
     var citizenshipNumber:String="",
     var bloodGroup:String="",
-    var gender:String=""
+    var gender:String="",
+    var noOfTimeDonated:Int=0
     ):Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString().toString()?:"",
@@ -21,7 +22,8 @@ data class IndividualModel (
         parcel.readString().toString()?:"",
         parcel.readString().toString()?:"",
         parcel.readString().toString()?:"",
-        parcel.readString().toString()?:""
+        parcel.readString().toString()?:"",
+        parcel.readInt()?:0
     ) {
     }
 
@@ -34,6 +36,7 @@ data class IndividualModel (
         parcel.writeString(citizenshipNumber)
         parcel.writeString(bloodGroup)
         parcel.writeString(gender)
+        parcel.writeInt(noOfTimeDonated)
     }
 
     override fun describeContents(): Int {

@@ -16,6 +16,7 @@ class UserLoginActivity : AppCompatActivity() {
     private lateinit var passwordInput: TextInputEditText
     private lateinit var signInButton: MaterialButton
     private lateinit var userViewModel: UserViewModel
+    private lateinit var userId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class UserLoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         userViewModel.login(email, password) { success, message ->
             if (success) {
-                val userId = userViewModel.getCurrentUser()?.uid.toString()
+                userId = userViewModel.getCurrentUser()?.uid.toString()
                 Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
 
                 userViewModel.getDataFromDB(userId) { type ->
@@ -70,22 +71,30 @@ class UserLoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToDashboard(userType: String?) {
+        var intent: Intent?= null
         when (userType) {
             "ADMN" -> {
-                startActivity(Intent(this, AdminDashActivity::class.java))
+                intent=(Intent(this, AdminDashActivity::class.java))
+                intent.putExtra("UID",userId)
                 finish()
             }
             "ORG" -> {
-                startActivity(Intent(this, OrganizationDashActivity::class.java))
+                intent=(Intent(this, OrganizationDashActivity::class.java))
+                intent.putExtra("UID",userId)
                 finish()
             }
             "IND" -> {
-                startActivity(Intent(this, UserDashActivity::class.java))
+                intent=(Intent(this, UserDashActivity::class.java))
+                intent.putExtra("UID",userId)
                 finish()
+
             }
             else -> {
                 Toast.makeText(this, "Unknown user type: $userType", Toast.LENGTH_SHORT).show()
             }
+        }
+        if(intent!=null){
+            startActivity(intent)
         }
     }
 }
