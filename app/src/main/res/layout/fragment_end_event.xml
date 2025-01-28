@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,43 +11,216 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/bloodTypeText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Blood Type:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
 
-        <EditText
-            android:id="@+id/bloodBagsInput"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A+:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/aPositiveInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter number of blood bags"
-            android:inputType="number"
-            android:textSize="16sp"
-            android:paddingBottom="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A-:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/aNegativeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B+:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/bPositiveInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B-:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/bNegativeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O+:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/oPositiveInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O-:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/oNegativeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AB+:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/abPositiveInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AB-:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:minWidth="60dp" />
+
+            <EditText
+                android:id="@+id/abNegativeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number of blood bags"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/venueText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Venue:"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/venueInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter venue"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
 
         <Button
-            android:id="@+id/endEventButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/continueButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/red"
             android:text="Continue"
             android:textStyle="bold"
+            android:backgroundTint="@color/red"
             android:textColor="@color/white" />
 
     </LinearLayout>
-
-</FrameLayout>
+</ScrollView>
