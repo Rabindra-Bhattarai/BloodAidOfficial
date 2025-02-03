@@ -19,12 +19,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Organization Registration"
-            android:textColor="#D32F2F"
+            android:textColor="@color/red"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvSubtitle"
+            android:id="@+id/tvRegistrationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -116,10 +116,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#D32F2F"
+            android:backgroundTint="@color/red"
             android:padding="12dp"
             android:text="CONTINUE"
             android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="If you already have an account?"
+            android:textColor="#757575"
+            android:textSize="14sp" />
+
+        <!-- Button at the bottom right side -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnRightSide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/red"
+                android:text="GO BACK"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+
+
+
+
 
     </LinearLayout>
 </ScrollView>

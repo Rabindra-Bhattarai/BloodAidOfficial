@@ -1,4 +1,4 @@
-package com.example.blood_aid.ui.activity
+package com.example.blood_aid.utils
 
 object LoginUtils {
     fun validate(username:String,password:String):String?{
