@@ -8,15 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityUserDashBinding
-import com.example.blood_aid.repository.UserRepository
-import com.example.blood_aid.repository.UserRepositoryImpl
-import com.example.blood_aid.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseUser
 
 class UserDashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDashBinding
-    private lateinit var userViewModel: UserViewModel
-    private val uid= intent.getStringExtra("uid").toString()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +22,7 @@ class UserDashActivity : AppCompatActivity() {
 
         binding.profileNav.setOnClickListener {
             val intent = Intent(this@UserDashActivity,UserProfileActivity::class.java)
-            intent.putExtra("uid",uid)
+
             startActivity(intent)
             finish()
         }

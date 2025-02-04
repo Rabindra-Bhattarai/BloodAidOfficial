@@ -40,11 +40,7 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override fun addDataToDatabase(
-        userID: String,
-        userModel: UserTypeModel?,
-        callback: (Boolean, String) -> Unit
-    ) {
+    override fun addDataToDatabase(userID: String, userModel: UserTypeModel?, callback: (Boolean, String) -> Unit) {
         if (userModel != null) {
             reference.child(userID).setValue(userModel).addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -54,7 +50,7 @@ class UserRepositoryImpl : UserRepository {
                 }
             }
         } else {
-            callback(false, "UserModel is null")
+            callback(false, "UserTypeModel is null")
         }
     }
 
@@ -69,12 +65,12 @@ class UserRepositoryImpl : UserRepository {
                     val userType = snapshot.child("userType").getValue(String::class.java) ?: "ERROR"
                     callback(userType)
                 } else {
-                    callback("ERROR") // Handle case where data doesn't exist
+                    callback("ERROR")
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback("ERROR") // Handle error case
+                callback("ERROR")
             }
         })
     }

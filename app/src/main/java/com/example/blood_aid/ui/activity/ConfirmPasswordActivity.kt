@@ -49,7 +49,6 @@ class ConfirmPasswordActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.BackButton.setOnClickListener { goBack() }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -80,16 +79,24 @@ class ConfirmPasswordActivity : AppCompatActivity() {
     private fun handleSignUp() {
         val password = binding.etPassword.text.toString()
         if (type == "IND") {
-            val userData : IndividualModel?= intent.getParcelableExtra("UserData")
+            val userData: IndividualModel? = intent.getParcelableExtra("UserData")
             userData?.let { data ->
-                mainViewModel.signup(data.email, password) { success, message, userId ->
+                mainViewModel.signup(data.email, password) { success, message, userrId ->
                     if (success) {
-                        val model=UserTypeModel(userId,"IND")
-                        mainViewModel.addDataToDatabase(data.userId,model){
-                                successs,messasge->
-                            if(successs){
-                                navigateTo(UserLoginActivity::class.java)
-                                showToast(message)
+                        val model = UserTypeModel(userrId.toString(), "IND")
+                        data.userId=userrId;
+                        mainViewModel.addDataToDatabase(userrId, model) { userTypeSuccess, userTypeMessage ->
+                            if (userTypeSuccess) {
+                                individualViewModel.addDataToDatabase(userrId, data) { indSuccess, indMessage ->
+                                    if (indSuccess) {
+                                        navigateTo(UserLoginActivity::class.java)
+                                        showToast("Registration Successful")
+                                    } else {
+                                        showToast(indMessage)
+                                    }
+                                }
+                            } else {
+                                showToast(userTypeMessage)
                             }
                         }
                     } else {
@@ -102,22 +109,22 @@ class ConfirmPasswordActivity : AppCompatActivity() {
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
                     if (success) {
-                        data.userId=userId
-                        orgViewModel.addDataToDatabase(data.userId, data) { success, messsage ->
-                            if (success){
-                                val model=UserTypeModel(userId,"ORG")
-                                mainViewModel.addDataToDatabase(data.userId,model){
-                                        successs,message->
-                                    if(successs){
+                        data.userId = userId
+                        orgViewModel.addDataToDatabase(userId, data) { orgSuccess, orgMessage ->
+                            if (orgSuccess) {
+                                val model = UserTypeModel(userId, "ORG")
+                                mainViewModel.addDataToDatabase(userId, model) { userTypeSuccess, userTypeMessage ->
+                                    if (userTypeSuccess) {
                                         navigateTo(UserLoginActivity::class.java)
-                                        showToast(messsage)
+                                        showToast("Registration Successful")
+                                    } else {
+                                        showToast(userTypeMessage)
                                     }
                                 }
-
+                            } else {
+                                showToast(orgMessage)
                             }
                         }
-                    } else {
-                        showToast(message)
                     }
                 }
             }
@@ -126,11 +133,13 @@ class ConfirmPasswordActivity : AppCompatActivity() {
 
     private fun goBack() {
         val intent = when (type) {
-            "Org" -> Intent(this, OrgRegistrationActivity::class.java)
+            "ORG" -> Intent(this, OrgRegistrationActivity::class.java)
             "IND" -> Intent(this, NewRegistrationActivity::class.java)
             else -> Intent(this, StartActivity::class.java)
         }
         startActivity(intent)
+        finish()
+
     }
 
     private fun showToast(message: String) {
@@ -139,5 +148,7 @@ class ConfirmPasswordActivity : AppCompatActivity() {
 
     private fun <T> navigateTo(activity: Class<T>) {
         startActivity(Intent(this, activity))
+        finish()
+
     }
 }

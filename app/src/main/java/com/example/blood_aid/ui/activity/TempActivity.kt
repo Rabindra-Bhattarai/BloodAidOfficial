@@ -14,8 +14,8 @@ class TempActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         userViewModel = UserViewModel(UserRepositoryImpl())
 
-        val model: UserTypeModel = UserTypeModel("GtujmwzOxqVrXKY1xfYk4PGQj9O2", "ADMN")
-        userViewModel.addDataToDatabase("GtujmwzOxqVrXKY1xfYk4PGQj9O2", model) { success,msg ->
+        val model: UserTypeModel = UserTypeModel("YNEPnHJ2PrfgJVxZg2OQ0QlYNq52", "ADMN")
+        userViewModel.addDataToDatabase("YNEPnHJ2PrfgJVxZg2OQ0QlYNq52", model) { success,msg ->
             if (success) {
                 Toast.makeText(this,"success",Toast.LENGTH_SHORT).show()
             } else {

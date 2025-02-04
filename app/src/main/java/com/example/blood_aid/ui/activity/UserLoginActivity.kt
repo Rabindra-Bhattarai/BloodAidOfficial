@@ -16,7 +16,7 @@ class UserLoginActivity : AppCompatActivity() {
     private lateinit var passwordInput: TextInputEditText
     private lateinit var signInButton: MaterialButton
     private lateinit var userViewModel: UserViewModel
-    private lateinit var userId:String
+    private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,45 +55,70 @@ class UserLoginActivity : AppCompatActivity() {
         userViewModel.login(email, password) { success, message ->
             if (success) {
                 userId = userViewModel.getCurrentUser()?.uid.toString()
-                Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@UserLoginActivity, "Logged in", Toast.LENGTH_SHORT).show()
 
-                userViewModel.getDataFromDB(userId) { type ->
-                    if (type != "ERROR") {
-                        navigateToDashboard(type)
-                    } else {
-                        Toast.makeText(this, "Failed to fetch user type.", Toast.LENGTH_SHORT).show()
+                userViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString()){
+                    type->
+                    if (type=="IND"){
+                        Toast.makeText(this@UserLoginActivity, "Indi", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@UserLoginActivity, UserDashActivity::class.java)
+                        intent.putExtra("ID", userId)
+                        startActivity(intent)
+                        finish()
+
+                    }else
+                    if (type=="ORG"){
+                        Toast.makeText(this@UserLoginActivity, "ORG", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
+                        intent.putExtra("ID", userId)
+                        startActivity(intent)
+                        finish()
+                    }else
+                    if (type=="ADMN"){
+                        Toast.makeText(this@UserLoginActivity, "admn", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@UserLoginActivity, AdminDashActivity::class.java)
+                        intent.putExtra("ID", userId)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        Toast.makeText(this@UserLoginActivity, "NETWORK SECURITY EVENT DETECTED", Toast.LENGTH_SHORT).show()
                     }
                 }
-            } else {
-                Toast.makeText(this, "Login failed: $message", Toast.LENGTH_SHORT).show()
+        }else{
+                Toast.makeText(this@UserLoginActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun navigateToDashboard(userType: String?) {
-        var intent: Intent?= null
+        var intent: Intent? = null
         when (userType) {
             "ADMN" -> {
-                intent=(Intent(this, AdminDashActivity::class.java))
-                intent.putExtra("UID",userId)
-                finish()
+                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
+//                intent = Intent(this, AdminDashActivity::class.java)
+//                intent.putExtra("UID", userId)
+//                finish()
             }
             "ORG" -> {
-                intent=(Intent(this, OrganizationDashActivity::class.java))
-                intent.putExtra("UID",userId)
-                finish()
+                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
+
+//                intent = Intent(this, OrganizationDashActivity::class.java)
+//                intent.putExtra("UID", userId)
+//                finish()
             }
             "IND" -> {
-                intent=(Intent(this, UserDashActivity::class.java))
-                intent.putExtra("UID",userId)
-                finish()
+                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
 
+//                intent = Intent(this, UserDashActivity::class.java)
+//                intent.putExtra("UID", userId)
+//                finish()
             }
             else -> {
                 Toast.makeText(this, "Unknown user type: $userType", Toast.LENGTH_SHORT).show()
             }
         }
-        if(intent!=null){
+        if (intent != null) {
             startActivity(intent)
         }
     }
