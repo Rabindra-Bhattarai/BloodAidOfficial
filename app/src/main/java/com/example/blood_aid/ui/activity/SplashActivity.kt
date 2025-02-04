@@ -16,8 +16,10 @@ class SplashActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
         Handler(Looper.getMainLooper()).postDelayed({
-            intent = Intent(this@SplashActivity, StartActivity::class.java)
+            val intent = Intent(this@SplashActivity, StartActivity::class.java)
             startActivity(intent)
+            finish()
+
         },3000)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

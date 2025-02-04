@@ -20,14 +20,18 @@ class StartActivity : AppCompatActivity() {
         binding.user.setOnClickListener{
             val intent=Intent(this@StartActivity,NewRegistrationActivity::class.java)
             startActivity(intent)
-        }
+                    }
         binding.ngoOrg.setOnClickListener{
             val intent=Intent(this@StartActivity,OrgRegistrationActivity::class.java)
             startActivity(intent)
+
+
         }
         binding.landingRegister.setOnClickListener{
             val intent=Intent(this@StartActivity,UserLoginActivity::class.java)
             startActivity(intent)
+
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
