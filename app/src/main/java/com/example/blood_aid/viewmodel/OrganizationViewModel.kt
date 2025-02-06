@@ -14,7 +14,7 @@ class OrganizationViewModel(val repo: OrganizationRepository) {
     var userData = MutableLiveData<OrganizationModel?>() //getter
         get() = _userData
 
-    fun getDataFromDB(userID: String, callback: (OrganizationModel?, Boolean, String) -> Unit) {
+    fun getDataFromDB(userID: String) {
         repo.getDataFromDB(userID) { userModel, success, message ->
             if (success) {
                 _userData.value = userModel
