@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.SingleBloodItemFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SINGLE BLOOD ITEM"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextOrganization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="NAME OF ORGANIZATION"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="EMAIL"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="PHONE NUMBER"
+            android:inputType="phone"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="LOCATION"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/buttonRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REQUEST"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
