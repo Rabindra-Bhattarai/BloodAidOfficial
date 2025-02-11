@@ -11,10 +11,10 @@
       <SelectionState runConfigName="UserProfileActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="OrgProfileActivity">
+      <SelectionState runConfigName="UserDashActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="MainActivity">
+      <SelectionState runConfigName="TempActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
