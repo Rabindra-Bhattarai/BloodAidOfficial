@@ -8,7 +8,6 @@
     android:background="@android:color/white"
     android:padding="16dp">
 
-    <!-- Logo at the top-left corner -->
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="40dp"
@@ -19,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="16dp" />
 
-    <!-- Registration Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
@@ -34,7 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <!-- Subtitle -->
     <TextView
         android:id="@+id/tvSubTitle"
         android:layout_width="0dp"
