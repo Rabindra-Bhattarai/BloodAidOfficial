@@ -11,6 +11,42 @@
         android:padding="16dp"
         android:background="@color/white">
 
+        <TextView
+            android:id="@+id/eventTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Community Blood Drive Event"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hosted By:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/eventHostText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red Cross Society"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_weight="2" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,16 +146,6 @@
                 android:textColor="@color/black"
                 android:layout_weight="2" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/red"
-            android:text="Register"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
 
     </LinearLayout>
 

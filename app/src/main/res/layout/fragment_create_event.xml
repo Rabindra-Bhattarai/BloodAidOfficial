@@ -16,16 +16,16 @@
             android:layout_height="wrap_content"
             android:hint="Event Title" />
 
-        <TextView
+        <EditText
             android:id="@+id/eventDateInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Event Date"
-            android:textColorHint="@color/black"
+            android:inputType="none"
             android:padding="12dp"
-            android:background="@color/white"
             android:clickable="true"
-            android:focusable="false" />
+            android:focusable="false"
+            android:cursorVisible="false" />
 
         <EditText
             android:id="@+id/eventTimeInput"
@@ -40,11 +40,21 @@
             android:layout_height="wrap_content"
             android:hint="Event Venue" />
 
+        <EditText
+            android:id="@+id/eventDescriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start" />
+
         <Button
             android:id="@+id/createEventButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/red"
             android:text="Create Event" />
 
