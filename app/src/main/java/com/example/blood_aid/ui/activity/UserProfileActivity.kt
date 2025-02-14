@@ -28,14 +28,16 @@ class UserProfileActivity : AppCompatActivity() {
         userViewModel = UserViewModel(UserRepositoryImpl())
         individualViewModel = IndividualViewModel(IndividualRepositoryImpl())
 
-        var userId = userViewModel.getCurrentUser()?.uid.toString()
+        val userId = userViewModel.getCurrentUser()?.uid.toString()
+        displayData(userId)
         binding.backButton.setOnClickListener {
             finish()
             val intent = Intent(this@UserProfileActivity, UserDashActivity::class.java)
             startActivity(intent)
         }
         binding.changeDetailsButton.setOnClickListener {
-            Toast.makeText(this, "This feature is not implemented yet", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@UserProfileActivity, ChangeDetailActivity::class.java)
+            startActivity(intent)
         }
 
         binding.logoutButton.setOnClickListener {
@@ -66,7 +68,6 @@ class UserProfileActivity : AppCompatActivity() {
                 binding.adressUsr.text = it.address
                 binding.bldGrp.text = it.bloodGroup
                 binding.email.text = it.email
-                binding.noOfTimeDonated.text = it.noOfTimeDonated.toInt().toString()
             }
         }
     }

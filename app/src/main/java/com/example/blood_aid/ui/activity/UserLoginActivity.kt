@@ -2,6 +2,7 @@ package com.example.blood_aid.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.blood_aid.R
@@ -17,6 +18,8 @@ class UserLoginActivity : AppCompatActivity() {
     private lateinit var signInButton: MaterialButton
     private lateinit var userViewModel: UserViewModel
     private lateinit var userId: String
+    private lateinit var forgetPassword: TextView
+    private lateinit var registerlink: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +28,23 @@ class UserLoginActivity : AppCompatActivity() {
         donorIdInput = findViewById(R.id.donorIdInput)
         passwordInput = findViewById(R.id.passwordInput)
         signInButton = findViewById(R.id.signInButton)
+        forgetPassword= findViewById(R.id.forgotPasswordLink)
+        registerlink= findViewById(R.id.registerLink)
+
+        forgetPassword.setOnClickListener{
+            startActivity(Intent(this@UserLoginActivity,ForgotPasswordActivity::class.java))
+        }
+        registerlink.setOnClickListener{
+            startActivity(Intent(this@UserLoginActivity,StartActivity::class.java))
+        }
 
         userViewModel = UserViewModel(UserRepositoryImpl())
 
         signInButton.setOnClickListener {
             validateAndLogin()
         }
+
+
     }
 
     private fun validateAndLogin() {
@@ -88,38 +102,6 @@ class UserLoginActivity : AppCompatActivity() {
         }else{
                 Toast.makeText(this@UserLoginActivity, message, Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun navigateToDashboard(userType: String?) {
-        var intent: Intent? = null
-        when (userType) {
-            "ADMN" -> {
-                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
-//                intent = Intent(this, AdminDashActivity::class.java)
-//                intent.putExtra("UID", userId)
-//                finish()
-            }
-            "ORG" -> {
-                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
-
-//                intent = Intent(this, OrganizationDashActivity::class.java)
-//                intent.putExtra("UID", userId)
-//                finish()
-            }
-            "IND" -> {
-                Toast.makeText(this, "Admin is logging", Toast.LENGTH_SHORT).show()
-
-//                intent = Intent(this, UserDashActivity::class.java)
-//                intent.putExtra("UID", userId)
-//                finish()
-            }
-            else -> {
-                Toast.makeText(this, "Unknown user type: $userType", Toast.LENGTH_SHORT).show()
-            }
-        }
-        if (intent != null) {
-            startActivity(intent)
         }
     }
 }

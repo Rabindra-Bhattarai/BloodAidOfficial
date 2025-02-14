@@ -57,8 +57,7 @@ class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedL
                 address,
                 citizenship,
                 bloodGroup,
-                gender,
-                0
+                gender
             )
             if (binding.cbTerms.isChecked) {
                 val intent = Intent(this@NewRegistrationActivity, ConfirmPasswordActivity::class.java)
