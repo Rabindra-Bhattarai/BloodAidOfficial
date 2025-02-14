@@ -9,12 +9,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityConfirmPasswordBinding
+import com.example.blood_aid.model.BloodBankModel
 import com.example.blood_aid.model.IndividualModel
 import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.model.UserTypeModel
+import com.example.blood_aid.repository.BloodBankRepository
+import com.example.blood_aid.repository.BloodBankRepositoryImpl
 import com.example.blood_aid.repository.IndividualRepositoryImpl
 import com.example.blood_aid.repository.OrganizationRepositoryImpl
 import com.example.blood_aid.repository.UserRepositoryImpl
+import com.example.blood_aid.viewmodel.BloodRepoViewModel
 import com.example.blood_aid.viewmodel.IndividualViewModel
 import com.example.blood_aid.viewmodel.OrganizationViewModel
 import com.example.blood_aid.viewmodel.UserViewModel
@@ -105,6 +109,7 @@ class ConfirmPasswordActivity : AppCompatActivity() {
                 }
             }
         } else if (type == "ORG") {
+            val bloodBankModel=BloodRepoViewModel(BloodBankRepositoryImpl())
             val userData = intent.getParcelableExtra<OrganizationModel>("UserData")
             userData?.let { data ->
                 mainViewModel.signup(data.email, password) { success, message, userId ->
@@ -116,6 +121,15 @@ class ConfirmPasswordActivity : AppCompatActivity() {
                                 mainViewModel.addDataToDatabase(userId, model) { userTypeSuccess, userTypeMessage ->
                                     if (userTypeSuccess) {
                                         navigateTo(UserLoginActivity::class.java)
+                                        bloodBankModel.createBloodBank(userId){
+                                            success,message->
+                                            if(success){
+                                                showToast("Registration Successful")
+                                            }else{
+                                                showToast(message)
+                                            }
+
+                                        }
                                         showToast("Registration Successful")
                                     } else {
                                         showToast(userTypeMessage)
