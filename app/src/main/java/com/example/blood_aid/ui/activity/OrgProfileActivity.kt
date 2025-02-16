@@ -35,15 +35,13 @@ class OrgProfileActivity : AppCompatActivity() {
         var userId = userViewModel.getCurrentUser()?.uid.toString()
         binding.backButton.setOnClickListener {
             finish()
-            val intent = Intent(this@OrgProfileActivity, OrganizationDashActivity::class.java)
-            startActivity(intent)
         }
 
-//        binding.changeDetailsButton.setOnClickListener {
-//            // Intent to navigate to ChangeDetailActivity
-//            val intent = Intent(this@OrgProfileActivity, ChangeDetailActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.changeDetailsButton.setOnClickListener {
+            // Intent to navigate to ChangeDetailActivity
+            val intent = Intent(this@OrgProfileActivity, ChangeDetailActivity::class.java)
+            startActivity(intent)
+        }
 
 
         binding.logoutButton.setOnClickListener {
