@@ -39,6 +39,10 @@ class UserProfileActivity : AppCompatActivity() {
             val intent = Intent(this@UserProfileActivity, ChangeDetailActivity::class.java)
             startActivity(intent)
         }
+        binding.changePasswordButton.setOnClickListener{
+            val intent = Intent(this@UserProfileActivity, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.logoutButton.setOnClickListener {
             userViewModel.logout() { success, message ->
