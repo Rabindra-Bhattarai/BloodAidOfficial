@@ -251,6 +251,41 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
+
+
+            <!-- TextView and Button side by side  -->
+
+            <TextView
+                android:id="@+id/tvFeature"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@color/lightWhite"
+                android:gravity="center"
+                android:text="If you already have an account?"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnFeature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_margin="16dp"
+                app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+
+            <Button
+                android:id="@+id/btnFeature"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/red"
+                android:text="GO BACK"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvFeature"
+                app:layout_constraintTop_margin="16dp"
+                app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+
+
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

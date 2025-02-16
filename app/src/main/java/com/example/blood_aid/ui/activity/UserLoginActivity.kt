@@ -43,6 +43,7 @@ class UserLoginActivity : AppCompatActivity() {
 
         signInButton.setOnClickListener {
             validateAndLogin()
+
         }
 
 
