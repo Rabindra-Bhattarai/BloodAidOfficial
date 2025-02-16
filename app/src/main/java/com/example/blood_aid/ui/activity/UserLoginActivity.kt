@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.blood_aid.R
 import com.example.blood_aid.repository.UserRepositoryImpl
+import com.example.blood_aid.utils.LocalStorage
 import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -24,7 +25,7 @@ class UserLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_login)
-
+        LocalStorage.init(this)
         donorIdInput = findViewById(R.id.donorIdInput)
         passwordInput = findViewById(R.id.passwordInput)
         signInButton = findViewById(R.id.signInButton)
@@ -71,7 +72,10 @@ class UserLoginActivity : AppCompatActivity() {
                 userId = userViewModel.getCurrentUser()?.uid.toString()
                 Toast.makeText(this@UserLoginActivity, "Logged in", Toast.LENGTH_SHORT).show()
 
-                userViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString()){
+                // Store user credentials using LocalStorage
+                LocalStorage.storeUserCredentials( email,password)
+
+                    userViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString()){
                     type->
                     if (type=="IND"){
                         Toast.makeText(this@UserLoginActivity, "Indi", Toast.LENGTH_SHORT).show()

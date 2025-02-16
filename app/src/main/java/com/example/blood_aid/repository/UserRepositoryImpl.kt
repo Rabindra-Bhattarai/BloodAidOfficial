@@ -1,6 +1,8 @@
 package com.example.blood_aid.repository
 
+import android.content.Context
 import com.example.blood_aid.model.UserTypeModel
+import com.example.blood_aid.utils.LocalStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -78,6 +80,7 @@ class UserRepositoryImpl : UserRepository {
     override fun logout(callback: (Boolean, String) -> Unit) {
         try {
             auth.signOut()
+            LocalStorage.clearUserCredentials()
             callback(true, "Sign out successfully")
         } catch (e: Exception) {
             callback(false, "Error signing out: ${e.message}")

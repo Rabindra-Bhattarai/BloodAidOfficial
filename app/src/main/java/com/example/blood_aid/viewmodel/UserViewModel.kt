@@ -1,5 +1,6 @@
 package com.example.blood_aid.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.blood_aid.model.UserTypeModel
 import com.example.blood_aid.repository.UserRepository
@@ -43,6 +44,7 @@ class UserViewModel(private val repo: UserRepository) : ViewModel() {
 
     // Logout method
     fun logout(callback: (Boolean, String) -> Unit) {
+
         repo.logout(callback)
     }
 }
