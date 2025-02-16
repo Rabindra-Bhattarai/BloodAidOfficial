@@ -50,6 +50,7 @@ class UserProfileActivity : AppCompatActivity() {
                     Toast.makeText(this@UserProfileActivity, message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@UserProfileActivity, SplashActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }

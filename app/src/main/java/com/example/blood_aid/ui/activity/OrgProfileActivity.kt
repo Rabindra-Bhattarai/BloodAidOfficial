@@ -46,16 +46,13 @@ class OrgProfileActivity : AppCompatActivity() {
 //        }
 
 
-        binding.changeDetailsButton.setOnClickListener {
-            Toast.makeText(this, "This feature is not implemented yet", Toast.LENGTH_SHORT).show()
-        }
-
         binding.logoutButton.setOnClickListener {
             userViewModel.logout() { success, message ->
                 if (success) {
                     Toast.makeText(this@OrgProfileActivity, message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@OrgProfileActivity, SplashActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }

@@ -67,17 +67,4 @@ class AdminDashActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun exit() {
-        val userViewModel = UserViewModel(UserRepositoryImpl())
-        userViewModel.logout { success, message ->
-            if (success) {
-                val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
-                sharedPreferences.edit().clear().apply()
-                startActivity(Intent(this@AdminDashActivity, SplashActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }
