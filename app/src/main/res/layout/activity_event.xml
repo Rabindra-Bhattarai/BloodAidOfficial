@@ -17,10 +17,20 @@
         android:background="@color/red"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="⬅️"
+            android:textColor="@color/white"
+            android:contentDescription="Back" />
+
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="56dp"
             android:layout_height="57dp"
+            android:layout_marginStart="16dp"
             android:background="@color/white"
             app:srcCompat="@drawable/logo" />
 
