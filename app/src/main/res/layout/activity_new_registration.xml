@@ -32,21 +32,21 @@
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_margin="16dp" />
+        />
 
     <!-- Subtitle -->
     <TextView
         android:id="@+id/tvSubTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Fill in your details to proceed"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/scrollForm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_margin="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <!-- Scrollable Form -->
     <ScrollView
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_margin="16dp">
+>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@id/etFullName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/etEmail"
-                app:layout_constraintTop_margin="12dp" />
+               />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -117,7 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@id/etEmail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/etMobileNumber"
-                app:layout_constraintTop_margin="12dp" />
+                 />
 
             <EditText
                 android:id="@+id/etMobileNumber"
@@ -140,7 +140,7 @@
                 app:layout_constraintTop_toBottomOf="@id/etMobileNumber"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/actAddress"
-                app:layout_constraintTop_margin="12dp" />
+           />
 
             <AutoCompleteTextView
                 android:id="@+id/actAddress"
@@ -162,7 +162,7 @@
                 app:layout_constraintTop_toBottomOf="@id/actAddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/etCitizenship"
-                app:layout_constraintTop_margin="12dp" />
+             />
 
             <EditText
                 android:id="@+id/etCitizenship"
@@ -184,7 +184,7 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/etCitizenship"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_margin="16dp" />
+            />
 
             <Spinner
                 android:id="@+id/spinnerBloodGroup"
@@ -193,7 +193,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvBloodGroupLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_margin="8dp" />
+                />
 
             <!-- Gender -->
             <TextView
@@ -204,8 +204,7 @@
                 android:textColor="@android:color/darker_gray"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/spinnerBloodGroup"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_margin="16dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <RadioGroup
                 android:id="@+id/rgGender"
@@ -215,7 +214,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvGender"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_margin="8dp">
+     >
 
                 <RadioButton
                     android:id="@+id/rbMale"
@@ -239,12 +238,11 @@
                 android:text="I agree to terms and conditions"
                 app:layout_constraintTop_toBottomOf="@id/rgGender"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_margin="16dp" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Register Button -->
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/etBtnRegister"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="REGISTER"
@@ -254,7 +252,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cbTerms"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_margin="24dp" />
+                />
 
 
 

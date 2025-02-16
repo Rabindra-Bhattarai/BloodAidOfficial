@@ -1,5 +1,6 @@
 package com.example.blood_aid.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -8,10 +9,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityOrgRegistrationBinding
+import com.example.blood_aid.model.IndividualModel
+import com.example.blood_aid.model.OrganizationModel
+import com.example.firebaselearn.utils.LoadingUtils
 
 class OrgRegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrgRegistrationBinding
+
+    private lateinit var loadingUtils: LoadingUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +26,7 @@ class OrgRegistrationActivity : AppCompatActivity() {
         // Initialize View Binding
         binding = ActivityOrgRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadingUtils= LoadingUtils(this@OrgRegistrationActivity)
 
         // Handle edge-to-edge insets
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -29,14 +36,14 @@ class OrgRegistrationActivity : AppCompatActivity() {
         }
 
         // Handle Register button click
-        binding.btnRegister.setOnClickListener {
+        binding.orgBtnRegister.setOnClickListener {
             // Fetch input values using binding
-            val name = binding.etName.text.toString().trim()
-            val email = binding.etEmail.text.toString().trim()
-            val phoneNumber = binding.etPhoneNumber.text.toString().trim()
-            val address = binding.actAddress.text.toString().trim()
-            val orgRegNumber = binding.etOrgRegNumber.text.toString().trim()
-            val isAgreed = binding.cbAgree.isChecked
+            val name = binding.orgName.text.toString().trim()
+            val email = binding.orgtEmail.text.toString().trim()
+            val phoneNumber = binding.orgPhoneNumber.text.toString().trim()
+            val address = binding.orgAddress.text.toString().trim()
+            val orgRegNumber = binding.orgRegNumber.text.toString().trim()
+            val isAgreed = binding.orgAgree.isChecked
 
             // Validation
             if (name.isEmpty()) {
@@ -65,12 +72,27 @@ class OrgRegistrationActivity : AppCompatActivity() {
             }
 
             // All fields are valid
-            showToast("Registration successful!")
+            loadingUtils.show()
+            val model= OrganizationModel(
+                "",
+                name,
+                email,
+                phoneNumber,
+                address,
+                orgRegNumber,
+                false,
+                0
+            )
+                val intent= Intent(this@OrgRegistrationActivity,ConfirmPasswordActivity::class.java)
+                intent.putExtra("UserData",model)
+                intent.putExtra("Type","ORG")
+            loadingUtils.dismiss()
+                startActivity(intent)
         }
     }
 
-    // Helper function to show Toast messages
     private fun showToast(message: String) {
+        loadingUtils.dismiss()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
