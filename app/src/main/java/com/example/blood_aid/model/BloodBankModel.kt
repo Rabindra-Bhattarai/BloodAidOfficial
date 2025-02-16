@@ -3,7 +3,7 @@ package com.example.blood_aid.model
 import android.os.Parcel
 import android.os.Parcelable
 
-class BloodBankModel (
+data class BloodBankModel (
         var OrgId:String="",
         var A_POSITIVE:Int=0,
         var A_NEGATIVE:Int=0,
