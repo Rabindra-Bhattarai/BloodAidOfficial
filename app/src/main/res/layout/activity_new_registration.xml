@@ -10,27 +10,30 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/logo"
+        android:layout_width="80dp"
+        android:layout_height="55dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="12dp"
         android:contentDescription="App Logo"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:text="REGISTRATION"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/ivLogo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
     <TextView
         android:id="@+id/tvSubTitle"
@@ -38,38 +41,26 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Fill in your details to proceed"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/scrollForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    <!-- Scrollable Form -->
     <ScrollView
         android:id="@+id/scrollForm"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="425dp"
         app:layout_constraintTop_toBottomOf="@id/tvSubTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
->
+        android:layout_marginBottom="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!-- Full Name -->
-            <ImageView
-                android:id="@+id/ivFullNameIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_edit"
-                app:tint="@android:color/darker_gray"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/etFullName" />
 
             <EditText
                 android:id="@+id/etFullName"
@@ -78,20 +69,8 @@
                 android:hint="Full Name"
                 android:padding="8dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ivFullNameIcon"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Email -->
-            <ImageView
-                android:id="@+id/ivEmailIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_dialog_email"
-                app:tint="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/etFullName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/etEmail"
-               />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -101,20 +80,8 @@
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
                 app:layout_constraintTop_toBottomOf="@id/etFullName"
-                app:layout_constraintStart_toEndOf="@id/ivEmailIcon"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Mobile Number -->
-            <ImageView
-                android:id="@+id/ivMobileIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_call"
-                app:tint="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/etEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/etMobileNumber"
-                 />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <EditText
                 android:id="@+id/etMobileNumber"
@@ -124,42 +91,8 @@
                 android:inputType="phone"
                 android:padding="8dp"
                 app:layout_constraintTop_toBottomOf="@id/etEmail"
-                app:layout_constraintStart_toEndOf="@id/ivMobileIcon"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Address -->
-            <ImageView
-                android:id="@+id/ivAddressIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_mylocation"
-                app:tint="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/etMobileNumber"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/actAddress"
-           />
-
-            <AutoCompleteTextView
-                android:id="@+id/actAddress"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:hint="Address"
-                android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/etMobileNumber"
-                app:layout_constraintStart_toEndOf="@id/ivAddressIcon"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Citizenship -->
-            <ImageView
-                android:id="@+id/ivCitizenshipIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_secure"
-                app:tint="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/actAddress"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/etCitizenship"
-             />
 
             <EditText
                 android:id="@+id/etCitizenship"
@@ -167,51 +100,26 @@
                 android:layout_height="50dp"
                 android:hint="Citizenship Number"
                 android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/actAddress"
-                app:layout_constraintStart_toEndOf="@id/ivCitizenshipIcon"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Blood Group -->
-            <TextView
-                android:id="@+id/tvBloodGroupLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Group"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/etCitizenship"
+                app:layout_constraintTop_toBottomOf="@id/etMobileNumber"
                 app:layout_constraintStart_toStartOf="parent"
-            />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <Spinner
                 android:id="@+id/spinnerBloodGroup"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@id/tvBloodGroupLabel"
+                app:layout_constraintTop_toBottomOf="@id/etCitizenship"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-            <!-- Gender -->
-            <TextView
-                android:id="@+id/tvGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/spinnerBloodGroup"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <RadioGroup
                 android:id="@+id/rgGender"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tvGender"
+                app:layout_constraintTop_toBottomOf="@id/spinnerBloodGroup"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-     >
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <RadioButton
                     android:id="@+id/rbMale"
@@ -227,7 +135,6 @@
                     android:layout_marginStart="16dp" />
             </RadioGroup>
 
-            <!-- Terms and Conditions -->
             <CheckBox
                 android:id="@+id/cbTerms"
                 android:layout_width="0dp"
@@ -237,56 +144,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- Register Button -->
             <Button
                 android:id="@+id/etBtnRegister"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="REGISTER"
+                android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:backgroundTint="@android:color/holo_red_dark"
                 app:layout_constraintTop_toBottomOf="@id/cbTerms"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-
-
-            <!-- TextView and Button side by side  -->
-
-            <TextView
-                android:id="@+id/tvFeature"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@color/lightWhite"
-                android:gravity="center"
-                android:text="If you already have an account?"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnFeature"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_margin="16dp"
-                app:layout_constraintTop_toBottomOf="@id/btnRegister" />
-
-            <Button
-                android:id="@+id/btnFeature"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/red"
-                android:text="GO BACK"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tvFeature"
-                app:layout_constraintTop_margin="16dp"
-                app:layout_constraintTop_toBottomOf="@id/btnRegister" />
-
-
-
-
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/bottomContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvAlreadyHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="Already have an account?"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="LOGIN"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

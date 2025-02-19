@@ -1,4 +1,4 @@
-package com.example.blood_aid.utils
+package com.example.blood_aid.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

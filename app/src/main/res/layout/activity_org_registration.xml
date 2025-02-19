@@ -12,7 +12,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!-- Header Section -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -92,18 +91,6 @@
 
 
 
-        <!--        <Button-->
-        <!--            android:id="@+id/btnUploadLogo"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Upload Logo"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:backgroundTint="#D32F2F"-->
-        <!--            android:textColor="#FFFFFF" />-->
-
-        <!-- Agreement -->
-
-        <!-- Register Button -->
         <CheckBox
             android:id="@+id/orgAgree"
             android:layout_width="wrap_content"
@@ -132,7 +119,7 @@
             android:textColor="#757575"
             android:textSize="14sp" />
 
-        <!-- Button at the bottom right side -->
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
