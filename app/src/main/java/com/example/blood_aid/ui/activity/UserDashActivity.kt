@@ -28,6 +28,10 @@ class UserDashActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         spinner.onItemSelectedListener = this
         spinner.adapter = adapter
 
+        binding.viewEvent.setOnClickListener{
+            startActivity(Intent(this@UserDashActivity,ViewEventsActivity::class.java))
+        }
+
         binding.profileNav.setOnClickListener {
             val intent = Intent(this@UserDashActivity,UserProfileActivity::class.java)
             startActivity(intent)

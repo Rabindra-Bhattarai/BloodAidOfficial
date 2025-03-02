@@ -45,6 +45,10 @@ class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedL
             startActivity(Intent(this,UserLoginActivity::class.java))
             finish()
         }
+        binding.btnLogin.setOnClickListener{
+            startActivity(Intent(this,UserLoginActivity::class.java))
+            finish()
+        }
 
         binding.etBtnRegister.setOnClickListener {
             loadingUtils.show()

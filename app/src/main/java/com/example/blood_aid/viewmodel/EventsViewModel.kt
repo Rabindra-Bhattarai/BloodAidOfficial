@@ -26,4 +26,13 @@ class EventsViewModel(private val repo: EventRepository) {
     fun checkEventExists(orgId: String, callback: (Boolean) -> Unit) {
         repo.checkEventExists(orgId, callback)
     }
+    fun getAllEvents(callback: (List<EventModel>) -> Unit) {
+        repo.getAllEvents(callback)
+    }
+
+    fun fetchAllEvents() {
+        repo.getAllEvents { eventList ->
+            _events.value = eventList
+        }
+    }
 }

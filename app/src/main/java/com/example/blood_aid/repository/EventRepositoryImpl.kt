@@ -99,5 +99,21 @@ class EventRepositoryImpl : EventRepository {
                 callback(false) // Handle failure
             }
     }
+    override fun getAllEvents(callback: (List<EventModel>) -> Unit) {
+        database.child("events").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val events = mutableListOf<EventModel>()
+                for (eventSnapshot in snapshot.children) {
+                    val event = eventSnapshot.getValue(EventModel::class.java)
+                    event?.let { events.add(it) }
+                }
+                callback(events)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(emptyList()) // Return empty list on failure
+            }
+        })
+    }
 
 }
