@@ -33,6 +33,9 @@ class EventActivity : AppCompatActivity() {
         binding.eventDetailsButton.setOnClickListener{
             replaceFragment(EventDetailsFragment())
         }
+        binding.backButton.setOnClickListener{
+            finish()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

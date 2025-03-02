@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,12 +52,10 @@
     <ScrollView
         android:id="@+id/scrollForm"
         android:layout_width="0dp"
-        android:layout_height="425dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSubTitle"
-        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,9 +67,9 @@
                 android:layout_height="50dp"
                 android:hint="Full Name"
                 android:padding="8dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -79,20 +78,32 @@
                 android:hint="E-mail"
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/etFullName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/etFullName" />
 
             <EditText
                 android:id="@+id/etMobileNumber"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:hint="Mobile Number"
                 android:inputType="phone"
                 android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/etEmail"
+                app:layout_constraintBottom_toTopOf="@+id/etCitizenship"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/actAddress" />
+
+            <EditText
+                android:id="@+id/actAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Address"
+                android:inputType="phone"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/etMobileNumber"
+                app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
             <EditText
                 android:id="@+id/etCitizenship"
@@ -100,26 +111,26 @@
                 android:layout_height="50dp"
                 android:hint="Citizenship Number"
                 android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/etMobileNumber"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/etMobileNumber" />
 
             <Spinner
                 android:id="@+id/spinnerBloodGroup"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@id/etCitizenship"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/etCitizenship" />
 
             <RadioGroup
                 android:id="@+id/rgGender"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/spinnerBloodGroup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/spinnerBloodGroup">
 
                 <RadioButton
                     android:id="@+id/rbMale"
@@ -131,8 +142,8 @@
                     android:id="@+id/rbFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:layout_marginStart="16dp" />
+                    android:layout_marginStart="16dp"
+                    android:text="Female" />
             </RadioGroup>
 
             <CheckBox
@@ -140,22 +151,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="I agree to terms and conditions"
-                app:layout_constraintTop_toBottomOf="@id/rgGender"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/rgGender" />
 
             <Button
                 android:id="@+id/etBtnRegister"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="REGISTER"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:text="REGISTER"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:backgroundTint="@android:color/holo_red_dark"
-                app:layout_constraintTop_toBottomOf="@id/cbTerms"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/cbTerms" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -165,13 +176,16 @@
         android:id="@+id/bottomContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="21dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollForm">
 
         <TextView
             android:id="@+id/tvAlreadyHaveAccount"

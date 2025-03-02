@@ -16,12 +16,21 @@ class OrganizationDashActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding=ActivityOrganizationDashBinding.inflate(layoutInflater)
 
+        binding.bldRpo.setOnClickListener{
+            startActivity(Intent(this,BloodRepositoryActivity::class.java))
+        }
+        binding.reqBtn.setOnClickListener{
+            startActivity(Intent(this,RequestActivity::class.java))
+        }
         setContentView(binding.root)
         binding.orgChg.setOnClickListener{
             startActivity(Intent(this,OrgProfileActivity::class.java))
         }
         binding.evntBtn.setOnClickListener{
             startActivity(Intent(this,EventActivity::class.java))
+        }
+        binding.bottomNotificationIcon.setOnClickListener{
+            startActivity(Intent(this,NewsActivity::class.java))
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

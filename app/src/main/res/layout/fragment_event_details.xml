@@ -42,7 +42,7 @@
                 android:id="@+id/eventHostText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Red Cross Society"
+                android:text=""
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="2" />
@@ -67,7 +67,7 @@
                 android:id="@+id/eventDateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="June 15, 2023"
+                android:text=""
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="2" />
@@ -92,7 +92,7 @@
                 android:id="@+id/eventTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10:00 AM - 4:00 PM"
+                android:text=""
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="2" />
@@ -117,7 +117,7 @@
                 android:id="@+id/eventVenueText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Community Center, 123 Main St"
+                android:text=""
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="2" />
@@ -130,7 +130,7 @@
             android:paddingBottom="16dp">
 
             <TextView
-                android:layout_width="177dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Description:"
@@ -142,7 +142,7 @@
                 android:id="@+id/eventDescriptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Join us for a blood drive fundraiser to support the local hospital. Refreshments will be provided."
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_weight="2" />

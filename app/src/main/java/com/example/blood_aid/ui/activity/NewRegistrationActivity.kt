@@ -41,6 +41,10 @@ class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedL
         binding.rbFemale.setOnClickListener {
             gender = "FEMALE"
         }
+        binding.tvAlreadyHaveAccount.setOnClickListener{
+            startActivity(Intent(this,UserLoginActivity::class.java))
+            finish()
+        }
 
         binding.etBtnRegister.setOnClickListener {
             loadingUtils.show()

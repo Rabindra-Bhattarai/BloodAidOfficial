@@ -34,6 +34,13 @@ class OrgRegistrationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        binding.tvSubtitle.setOnClickListener{
+        startActivity(Intent(this,UserLoginActivity::class.java))
+        finish()
+        }
+        binding.btnRightSide.setOnClickListener{
+            finish()
+        }
 
         // Handle Register button click
         binding.orgBtnRegister.setOnClickListener {

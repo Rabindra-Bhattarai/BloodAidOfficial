@@ -11,17 +11,16 @@ import com.example.blood_aid.R
 import com.example.blood_aid.databinding.FragmentEndEventBinding
 import com.example.blood_aid.model.BloodBankModel
 import com.example.blood_aid.viewmodel.EventsViewModel
-import com.example.blood_aid.repository.BloodBankRepositoryImpl
 import com.example.blood_aid.repository.EventRepositoryImpl
+import com.example.blood_aid.repository.UserRepositoryImpl
+import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class EndEventFragment : Fragment() {
 
     private lateinit var binding: FragmentEndEventBinding
     private lateinit var viewModel: EventsViewModel
-    private lateinit var database: DatabaseReference
+    private lateinit var mainViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +28,13 @@ class EndEventFragment : Fragment() {
     ): View? {
         binding = FragmentEndEventBinding.inflate(inflater, container, false)
         viewModel = EventsViewModel(EventRepositoryImpl())
-        database = FirebaseDatabase.getInstance().reference
-
+        mainViewModel= UserViewModel(UserRepositoryImpl())
         binding.continueButton.setOnClickListener {
-            val userId = FirebaseAuth.getInstance().currentUser ?.uid ?: return@setOnClickListener
+            val userId = mainViewModel.getCurrentUser()?.uid.toString()
 
-            // Check if the event exists for the OrgId
-            checkEventExists(userId) { eventExists ->
-                if (eventExists) {
-                    // Proceed to end the event and update blood bank data
+            // Check if the event exists for the OrgId using the ViewModel
+            viewModel.getEventsByUserId(userId) { snapshot ->
+                if (!snapshot.isEmpty()) {
                     val bloodBankData = BloodBankModel(
                         OrgId = userId,
                         A_POSITIVE = binding.aPositiveInput.text.toString().toIntOrNull() ?: 0,
@@ -50,10 +47,21 @@ class EndEventFragment : Fragment() {
                         AB_NEGATIVE = binding.abNegativeInput.text.toString().toIntOrNull() ?: 0
                     )
 
+                    // Call the ViewModel to end the event
                     viewModel.endEvent(userId, bloodBankData) { success, message ->
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                         if (success) {
-                            Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Bloods updated successfully!", Toast.LENGTH_SHORT).show()
+                            viewModel.removeEvent(userId){
+                                success1,message1->
+                                    if(success1){
+                                        Toast.makeText(requireContext(), "Event Has Successfully ended", Toast.LENGTH_SHORT).show()
+                                    }
+                                else{
+                                        Toast.makeText(requireContext(), message1, Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                            clearFields() // Clear input fields after success
                         }
                     }
                 } else {
@@ -65,14 +73,14 @@ class EndEventFragment : Fragment() {
         return binding.root
     }
 
-    private fun checkEventExists(orgId: String, callback: (Boolean) -> Unit) {
-        database.child("events").orderByChild("OrgId").equalTo(orgId).get()
-            .addOnSuccessListener { snapshot ->
-                callback(snapshot.exists())
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to check event status.", Toast.LENGTH_SHORT).show()
-                callback(false)
-            }
+    private fun clearFields() {
+        binding.aPositiveInput.text.clear()
+        binding.aNegativeInput.text.clear()
+        binding.bPositiveInput.text.clear()
+        binding.bNegativeInput.text.clear()
+        binding.oPositiveInput.text.clear()
+        binding.oNegativeInput.text.clear()
+        binding.abPositiveInput.text.clear()
+        binding.abNegativeInput.text.clear()
     }
 }

@@ -1,7 +1,9 @@
 package com.example.blood_aid.repository
 
+import android.util.Log
 import com.example.blood_aid.model.EventModel
 import com.example.blood_aid.model.BloodBankModel
+import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -10,9 +12,10 @@ import com.google.firebase.database.ValueEventListener
 
 class EventRepositoryImpl : EventRepository {
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    private val userViewModel: UserViewModel= UserViewModel(UserRepositoryImpl())
 
     override fun addEvent(event: EventModel, callback: (Boolean, String) -> Unit) {
-        val eventId = database.child("events").push().key ?: return callback(false, "Error generating event ID")
+        val eventId = userViewModel.getCurrentUser()?.uid.toString()
         database.child("events").child(eventId).setValue(event)
             .addOnSuccessListener {
                 callback(true, "Event added with ID: $eventId")
@@ -28,6 +31,7 @@ class EventRepositoryImpl : EventRepository {
                 callback(true, "Event successfully deleted!")
             }
             .addOnFailureListener { e ->
+                Log.e("RemoveEvent", "Error deleting event: ${e.message}")
                 callback(false, "Error deleting event: ${e.message}")
             }
     }
@@ -85,6 +89,15 @@ class EventRepositoryImpl : EventRepository {
                 callback(emptyList()) // Return empty list on failure
             }
         })
+    }
+    override fun checkEventExists(orgId: String, callback: (Boolean) -> Unit) {
+        database.child("events").child(orgId).get()
+            .addOnSuccessListener { snapshot ->
+                callback(snapshot.exists())
+            }
+            .addOnFailureListener {
+                callback(false) // Handle failure
+            }
     }
 
 }

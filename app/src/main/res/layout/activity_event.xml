@@ -1,40 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context=".ui.activity.EventActivity"
+    android:background="@color/lightWhite">
 
-    <TextView
-        android:id="@+id/events_title"
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E53935"
-        android:padding="8dp"
-        android:text="Events"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/red"
+        android:padding="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/events_recycler_view"
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+            android:contentDescription="Back" />
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="56dp"
+            android:layout_height="57dp"
+            android:background="@color/white"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/bloodAid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Blood-Aid"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginVertical="8dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@id/back_button"
-        app:layout_constraintTop_toBottomOf="@id/events_title" />
+        app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout">
+    </FrameLayout>
 
-    <Button
-        android:id="@+id/back_button"
+    <LinearLayout
+        android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#E53935"
-        android:text="Back"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/createEventButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Create Event"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/eventDetailsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Event Details"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/endEventButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="End Event"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

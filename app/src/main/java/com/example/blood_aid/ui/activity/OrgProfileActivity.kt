@@ -33,16 +33,15 @@ class OrgProfileActivity : AppCompatActivity() {
         organizationViewModel = OrganizationViewModel(OrganizationRepositoryImpl())
 
         var userId = userViewModel.getCurrentUser()?.uid.toString()
+        displayData(userId)
         binding.backButton.setOnClickListener {
             finish()
         }
 
-        binding.changeDetailsButton.setOnClickListener {
-            // Intent to navigate to ChangeDetailActivity
-            val intent = Intent(this@OrgProfileActivity, ChangeDetailActivity::class.java)
+        binding.changePasswordButton.setOnClickListener{
+            val intent = Intent(this@OrgProfileActivity, ChangePasswordActivity::class.java)
             startActivity(intent)
         }
-
 
         binding.logoutButton.setOnClickListener {
             userViewModel.logout() { success, message ->
@@ -71,8 +70,6 @@ class OrgProfileActivity : AppCompatActivity() {
                 binding.orgsNumber.text = it.phoneNumber
                 binding.orgsAddress.text = it.address
                 binding.orgsRegsNumber.text = it.registrationNumber
-                binding.orgsNoh.text = it.enabled.toString()
-                binding.orgsDoe.text =it.noOFTimesHosted.toInt().toString()
             }
         }
     }

@@ -1,10 +1,14 @@
 package com.example.blood_aid.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.blood_aid.model.BloodBankModel
 import com.example.blood_aid.model.EventModel
 import com.example.blood_aid.repository.EventRepository
 
 class EventsViewModel(private val repo: EventRepository) {
+    private val _events = MutableLiveData<List<EventModel>>()
+    val events: LiveData<List<EventModel>> get() = _events
     fun addEvent(event: EventModel, callback: (Boolean, String) -> Unit) {
         repo.addEvent(event, callback)
     }
@@ -18,5 +22,8 @@ class EventsViewModel(private val repo: EventRepository) {
     }
     fun getEventsByUserId(userId: String, callback: (List<EventModel>) -> Unit) {
         repo.getEventsByUserId(userId, callback)
+    }
+    fun checkEventExists(orgId: String, callback: (Boolean) -> Unit) {
+        repo.checkEventExists(orgId, callback)
     }
 }

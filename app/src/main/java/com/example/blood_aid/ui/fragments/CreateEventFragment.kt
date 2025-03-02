@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.blood_aid.R
 import com.example.blood_aid.model.EventModel
 import com.example.blood_aid.repository.EventRepositoryImpl
@@ -24,16 +25,14 @@ class CreateEventFragment : Fragment() {
     private lateinit var eventDescriptionInput: EditText
     private lateinit var createEventButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        eventRepoViewModel = EventsViewModel(EventRepositoryImpl())
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_create_event, container, false)
+
+        // Initialize ViewModel
+        eventRepoViewModel = EventsViewModel(EventRepositoryImpl())
 
         // Initialize UI elements
         eventTitleInput = view.findViewById(R.id.eventTitleInput)
@@ -56,7 +55,11 @@ class CreateEventFragment : Fragment() {
 
         eventRepoViewModel.getEventsByUserId(userId) { events ->
             if (events.isEmpty()) {
-                createEvent(userId)
+                if (validateInputs()) {
+                    createEvent(userId)
+                } else {
+                    showAlert("Please fill in all fields.")
+                }
             } else {
                 showAlert("Only one event can be hosted at a time.")
             }
@@ -92,5 +95,13 @@ class CreateEventFragment : Fragment() {
 
     private fun showAlert(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun validateInputs(): Boolean {
+        return eventTitleInput.text.isNotEmpty() &&
+                eventDateInput.text.isNotEmpty() &&
+                eventTimeInput.text.isNotEmpty() &&
+                eventVenueInput.text.isNotEmpty() &&
+                eventDescriptionInput.text.isNotEmpty()
     }
 }
