@@ -1,60 +1,78 @@
 package com.example.blood_aid.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.blood_aid.R
+import com.example.blood_aid.databinding.FragmentEndEventBinding
+import com.example.blood_aid.model.BloodBankModel
+import com.example.blood_aid.viewmodel.EventsViewModel
+import com.example.blood_aid.repository.BloodBankRepositoryImpl
+import com.example.blood_aid.repository.EventRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EndEventFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EndEventFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentEndEventBinding
+    private lateinit var viewModel: EventsViewModel
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_end_event, container, false)
+        binding = FragmentEndEventBinding.inflate(inflater, container, false)
+        viewModel = EventsViewModel(EventRepositoryImpl())
+        database = FirebaseDatabase.getInstance().reference
+
+        binding.continueButton.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser ?.uid ?: return@setOnClickListener
+
+            // Check if the event exists for the OrgId
+            checkEventExists(userId) { eventExists ->
+                if (eventExists) {
+                    // Proceed to end the event and update blood bank data
+                    val bloodBankData = BloodBankModel(
+                        OrgId = userId,
+                        A_POSITIVE = binding.aPositiveInput.text.toString().toIntOrNull() ?: 0,
+                        A_NEGATIVE = binding.aNegativeInput.text.toString().toIntOrNull() ?: 0,
+                        B_POSITIVE = binding.bPositiveInput.text.toString().toIntOrNull() ?: 0,
+                        B_NEGATIVE = binding.bNegativeInput.text.toString().toIntOrNull() ?: 0,
+                        O_POSITIVE = binding.oPositiveInput.text.toString().toIntOrNull() ?: 0,
+                        O_NEGATIVE = binding.oNegativeInput.text.toString().toIntOrNull() ?: 0,
+                        AB_POSITIVE = binding.abPositiveInput.text.toString().toIntOrNull() ?: 0,
+                        AB_NEGATIVE = binding.abNegativeInput.text.toString().toIntOrNull() ?: 0
+                    )
+
+                    viewModel.endEvent(userId, bloodBankData) { success, message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        if (success) {
+                            Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "No event has been hosted for this OrgID.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EndEventFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EndEventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun checkEventExists(orgId: String, callback: (Boolean) -> Unit) {
+        database.child("events").orderByChild("OrgId").equalTo(orgId).get()
+            .addOnSuccessListener { snapshot ->
+                callback(snapshot.exists())
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to check event status.", Toast.LENGTH_SHORT).show()
+                callback(false)
             }
     }
 }

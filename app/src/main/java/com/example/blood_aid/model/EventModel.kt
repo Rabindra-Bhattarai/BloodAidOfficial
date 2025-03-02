@@ -1,6 +1,6 @@
 package com.example.blood_aid.model
 
-class EventModel (
+data class EventModel (
     var orgId: String ="",
     var Title: String ="",
     var Date: String ="",

@@ -1,60 +1,75 @@
 package com.example.blood_aid.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.blood_aid.R
+import com.example.blood_aid.databinding.FragmentEventDetailsBinding
+import com.example.blood_aid.model.EventModel
+import com.example.blood_aid.viewmodel.EventsViewModel
+import com.example.blood_aid.viewmodel.OrganizationViewModel
+import com.example.blood_aid.repository.EventRepositoryImpl
+import com.example.blood_aid.repository.OrganizationRepositoryImpl
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EventDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EventDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentEventDetailsBinding
+    private lateinit var eventsViewModel: EventsViewModel
+    private lateinit var organizationViewModel: OrganizationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_details, container, false)
+        binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
+
+        // Initialize ViewModels
+        eventsViewModel = EventsViewModel(EventRepositoryImpl())
+        organizationViewModel = OrganizationViewModel(OrganizationRepositoryImpl())
+
+        // Assuming you pass the OrgId as an argument to this fragment
+        val orgId = arguments?.getString("OrgId") ?: return binding.root
+
+        // Fetch organization details
+        fetchOrganizationDetails(orgId)
+
+        // Fetch event details
+        fetchEventDetails(orgId)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EventDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun fetchOrganizationDetails(orgId: String) {
+        organizationViewModel.getDataFromDB(orgId) // Fetch organization data
+        organizationViewModel.userData.observe(viewLifecycleOwner) { organization ->
+            if (organization != null) {
+                binding.eventHostText.text = organization.fullName // Update with the organization name
+            } else {
+                Toast.makeText(requireContext(), "Organization not found.", Toast.LENGTH_SHORT).show()
             }
+        }
     }
+
+    private fun fetchEventDetails(orgId: String) {
+        eventsViewModel.getEventsByUserId(orgId) { events ->
+            if (events.isNotEmpty()) {
+                val event = events[0] // Assuming you want the first event
+                binding.eventTitleText.text = event.Title
+                binding.eventDateText.text = event.Date
+                binding.eventTimeText.text = event.Time
+                binding.eventVenueText.text = event.Venue
+                binding.eventDescriptionText.text = event.Desc
+            } else {
+                // No events found, show a message and navigate to CreateEventFragment
+                Toast.makeText(requireContext(), "No events found for this organization", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 }
