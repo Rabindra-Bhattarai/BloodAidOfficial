@@ -1,31 +1,46 @@
 package com.example.blood_aid.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blood_aid.R
+import com.example.blood_aid.model.BloodBankModel
+import com.example.blood_aid.repository.BloodBankRepositoryImpl
 import com.example.blood_aid.databinding.ActivityBloodRepositoryBinding
+import com.example.blood_aid.viewmodel.BloodRepoViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class BloodRepositoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBloodRepositoryBinding
+    private val viewModel: BloodRepoViewModel= BloodRepoViewModel(BloodBankRepositoryImpl())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding=ActivityBloodRepositoryBinding.inflate(layoutInflater)
-        binding.backButton.setOnClickListener{
+        binding = ActivityBloodRepositoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.backButton.setOnClickListener {
             finish()
         }
-        binding.donateButton.setOnClickListener{
-            startActivity(Intent(this,BloodDonationActivity::class.java))
+
+        // Fetch blood bank data using the current user's ID
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            viewModel.getDataFromDB(userId){
+                bloodBank, b, s ->
+                binding.aPositiveValue.text = bloodBank?.A_POSITIVE.toString()
+                binding.aNegativeValue.text = bloodBank?.A_NEGATIVE.toString()
+                binding.bPositiveValue.text = bloodBank?.B_POSITIVE.toString()
+                binding.bNegativeValue.text = bloodBank?.B_NEGATIVE.toString()
+                binding.abPositiveValue.text = bloodBank?.AB_POSITIVE.toString()
+                binding.abNegativeValue.text = bloodBank?.AB_NEGATIVE.toString()
+                binding.oPositiveValue.text = bloodBank?.O_POSITIVE.toString()
+                binding.oNegativeValue.text = bloodBank?.O_NEGATIVE.toString()
+            }
+        } else {
+            Toast.makeText(this, "User  not logged in", Toast.LENGTH_SHORT).show()
         }
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
-}
