@@ -26,6 +26,7 @@ class NewsViewModel(private val repository: NewsRepository){
     }
 
     fun fetchAllNews() {
+        deleteOldNews()
         repository.fetchAllNews { newsList, success, message ->
             newsLiveData.postValue(newsList)
             statusLiveData.postValue(Pair(success, message))

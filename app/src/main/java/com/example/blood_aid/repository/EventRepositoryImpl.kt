@@ -3,6 +3,8 @@ package com.example.blood_aid.repository
 import android.util.Log
 import com.example.blood_aid.model.EventModel
 import com.example.blood_aid.model.BloodBankModel
+import com.example.blood_aid.model.NewsModel
+import com.example.blood_aid.viewmodel.NewsViewModel
 import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,11 +15,15 @@ import com.google.firebase.database.ValueEventListener
 class EventRepositoryImpl : EventRepository {
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val userViewModel: UserViewModel= UserViewModel(UserRepositoryImpl())
+    private val newsViewModel:NewsViewModel= NewsViewModel(NewsRepositoryImpl())
 
     override fun addEvent(event: EventModel, callback: (Boolean, String) -> Unit) {
         val eventId = userViewModel.getCurrentUser()?.uid.toString()
         database.child("events").child(eventId).setValue(event)
             .addOnSuccessListener {
+                newsViewModel.deleteOldNews()
+                 newsViewModel.createNews("New Event Is Here!","New Event event at: "+ event.Venue+"at"+event.Date)
+
                 callback(true, "Event added with ID: $eventId")
             }
             .addOnFailureListener { e ->
@@ -55,6 +61,7 @@ class EventRepositoryImpl : EventRepository {
                 database.child("BloodRepo").child(orgId).setValue(existingData)
                     .addOnSuccessListener {
                         callback(true, "Blood bank updated successfully!")
+                        newsViewModel.deleteOldNews()
                     }
                     .addOnFailureListener { e ->
                         callback(false, "Error updating blood bank: ${e.message}")
