@@ -29,18 +29,31 @@ class BloodBankRepositoryImpl : BloodBankRepository {
         userID: String,
         callback: (BloodBankModel?, Boolean, String) -> Unit
     ) {
-        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
+        // Reference to the specific userID in the database
+        val userReference = reference.child(userID)
+
+        // Add a listener to fetch data
+        userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    // Attempt to convert the snapshot to BloodBankModel
                     val model = snapshot.getValue(BloodBankModel::class.java)
-                    callback(model, true, "Details fetched successfully")
+                    if (model != null) {
+                        callback(model, true, "Details fetched successfully")
+                        println("Data fetched for userID: $userID - $model") // Log the fetched data
+                    } else {
+                        callback(null, false, "Data could not be parsed")
+                        println("Data could not be parsed for userID: $userID") // Log if parsing fails
+                    }
                 } else {
                     callback(null, false, "Data does not exist")
+                    println("No data found for userID: $userID") // Log if no data found
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
                 callback(null, false, error.message)
+                println("Error fetching data for userID: $userID - ${error.message}") // Log the error
             }
         })
     }
@@ -63,7 +76,7 @@ class BloodBankRepositoryImpl : BloodBankRepository {
         bloodGroup: String,
         callback: (List<OrganizationModel>, Boolean, String) -> Unit
     ) {
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val organizations = mutableListOf<OrganizationModel>()

@@ -1,5 +1,6 @@
 package com.example.blood_aid.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,17 +23,23 @@ class RequestsViewModel(private val repository: RequestRepository) : ViewModel()
             timestamp = System.currentTimeMillis()
         )
 
+        // Launch a coroutine to add the request and then fetch all requests
         viewModelScope.launch {
-            repository.addRequest(request) // Add the request to the repository with callback
+            repository.addRequest(request) // Add the request to the repository
             fetchAllRequests() // Refresh the list after adding a new request
         }
     }
 
     fun fetchAllRequests() {
         viewModelScope.launch {
-            repository.deleteOldRequests() // Remove old requests
-            val requests = repository.fetchAllRequests() // Fetch all requests from the repository
-            requestsLiveData.postValue(requests.toMutableList()) // Update LiveData
+            try {
+                repository.deleteOldRequests() // Remove old requests
+                val requests = repository.fetchAllRequests() // Fetch all requests from the repository
+                Log.d("RequestsViewModel", "Fetched requests: ${requests.size}")
+                requestsLiveData.postValue(requests.toMutableList()) // Update LiveData
+            } catch (e: Exception) {
+                Log.e("RequestsViewModel", "Error fetching requests", e)
+            }
         }
     }
 

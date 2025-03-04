@@ -1,6 +1,7 @@
 package com.example.blood_aid.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blood_aid.R
 import com.example.blood_aid.model.RequestModel
-import com.example.blood_aid.viewmodel.RequestsViewModel
 
 class RequestAdapter(
     private val context: Context,
-    private var requests: ArrayList<RequestModel>,
-    requestViewModel: RequestsViewModel,
+    private var requests: ArrayList<RequestModel>
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
@@ -31,12 +30,14 @@ class RequestAdapter(
         holder.phone.text = request.phoneNumber
         holder.bldgrp.text = request.bloodGroup
         holder.address.text = request.address
-
     }
 
     fun updateData(newRequestList: List<RequestModel>?) {
         requests.clear()
-        newRequestList?.let { requests.addAll(it) }
+        if (newRequestList != null) {
+            requests.addAll(newRequestList)
+        }
+        Log.d("RequestAdapter", "Updated data with ${requests.size} items")
         notifyDataSetChanged()
     }
 

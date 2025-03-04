@@ -11,6 +11,7 @@ class RequestRepositoryImpl : RequestRepository {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("requests")
 
+
     override suspend fun addRequest(request: RequestModel): String {
         return try {
             // Fetch all requests and check for existing request with the same phone number
@@ -39,9 +40,8 @@ class RequestRepositoryImpl : RequestRepository {
         } catch (e: Exception) {
             emptyList() // Handle exceptions (e.g., network issues)
         }
-    }
-
-    override suspend fun deleteOldRequests() {
+        }
+        override suspend fun deleteOldRequests() {
         val requests = fetchAllRequests()
         requests.forEach { request ->
             if (isOldRequest(request)) {
