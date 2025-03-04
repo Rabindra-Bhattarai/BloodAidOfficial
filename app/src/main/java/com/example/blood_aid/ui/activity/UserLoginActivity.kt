@@ -90,14 +90,19 @@ class UserLoginActivity : AppCompatActivity() {
 
                     }else
                     if (type=="ORG"){
-                        if(isOrgEnabled()){
-                        Toast.makeText(this@UserLoginActivity, "ORG", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
-                        intent.putExtra("ID", userId)
-                        startActivity(intent)
-                        finish()
-                        }else{
+                        isOrgEnabled()
+                        { enabled->
+                         if (enabled)
+                            {
+                                Toast.makeText(this@UserLoginActivity, "ORG", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
+                                intent.putExtra("ID", userId)
+                                startActivity(intent)
+                                finish()
+                            }else{
                             Toast.makeText(this, "UNAUTHORIZED!! Organization is not Verified By Admin, UNAUTHORIZED!!", Toast.LENGTH_LONG).show()
+                        }
+
                         }
                     }else
                     if (type=="ADMN"){
@@ -116,23 +121,26 @@ class UserLoginActivity : AppCompatActivity() {
         }
         }
     }
-    private fun isOrgEnabled():Boolean{
-        val organizationViewModel=OrganizationViewModel(OrganizationRepositoryImpl())
-        val userViewModel:UserViewModel=UserViewModel(UserRepositoryImpl())
-        var isEnabled:Boolean=false
+    private fun isOrgEnabled(callback: (Boolean) -> Unit) {
+        val organizationViewModel = OrganizationViewModel(OrganizationRepositoryImpl())
+        val userViewModel: UserViewModel = UserViewModel(UserRepositoryImpl())
+
         organizationViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString())
         organizationViewModel.userData.observe(this) { user ->
             user?.let {
-                isEnabled=user.enabled
+                println(user)
+                val isEnabled = user.enabled
+                callback(isEnabled)
+                if (!isEnabled) {
+                    userViewModel.logout { success, message ->
+                        Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } ?: run {
+                callback(false)
             }
         }
-        if(!isEnabled){
-            userViewModel.logout(){
-                success,message->
-                Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return isEnabled
     }
+
 
 }
