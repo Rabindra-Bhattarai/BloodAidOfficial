@@ -7,7 +7,7 @@ import com.example.blood_aid.model.UserTypeModel
 import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.viewmodel.UserViewModel
 
-class TempActivity : AppCompatActivity() {
+class AdminAdder : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -66,7 +66,7 @@
 
         </activity>
         <activity
-            android:name=".ui.activity.TempActivity"
+            android:name=".ui.activity.AdminAdder"
             android:exported="false">
 
         </activity>
