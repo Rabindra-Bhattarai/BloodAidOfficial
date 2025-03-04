@@ -6,11 +6,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.blood_aid.R
+import com.example.blood_aid.repository.OrganizationRepositoryImpl
 import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.utils.LocalStorage
+import com.example.blood_aid.viewmodel.OrganizationViewModel
 import com.example.blood_aid.viewmodel.UserViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseUser
 
 class UserLoginActivity : AppCompatActivity() {
 
@@ -87,11 +90,15 @@ class UserLoginActivity : AppCompatActivity() {
 
                     }else
                     if (type=="ORG"){
+                        if(isOrgEnabled()){
                         Toast.makeText(this@UserLoginActivity, "ORG", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@UserLoginActivity, OrganizationDashActivity::class.java)
                         intent.putExtra("ID", userId)
                         startActivity(intent)
                         finish()
+                        }else{
+                            Toast.makeText(this, "UNAUTHORIZED!! Organization is not Verified By Admin, UNAUTHORIZED!!", Toast.LENGTH_LONG).show()
+                        }
                     }else
                     if (type=="ADMN"){
                         Toast.makeText(this@UserLoginActivity, "admn", Toast.LENGTH_SHORT).show()
@@ -106,7 +113,26 @@ class UserLoginActivity : AppCompatActivity() {
                 }
         }else{
                 Toast.makeText(this@UserLoginActivity, message, Toast.LENGTH_SHORT).show()
-            }
+        }
         }
     }
+    private fun isOrgEnabled():Boolean{
+        val organizationViewModel=OrganizationViewModel(OrganizationRepositoryImpl())
+        val userViewModel:UserViewModel=UserViewModel(UserRepositoryImpl())
+        var isEnabled:Boolean=false
+        organizationViewModel.getDataFromDB(userViewModel.getCurrentUser()?.uid.toString())
+        organizationViewModel.userData.observe(this) { user ->
+            user?.let {
+                isEnabled=user.enabled
+            }
+        }
+        if(!isEnabled){
+            userViewModel.logout(){
+                success,message->
+                Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return isEnabled
+    }
+
 }
