@@ -13,6 +13,7 @@ import com.example.blood_aid.R
 import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.viewmodel.AdminViewModel
 import com.example.blood_aid.viewmodel.BloodRepoViewModel
+import com.example.blood_aid.viewmodel.UserViewModel
 
 class BloodBankAdapter(
     private val context: Context,
@@ -52,7 +53,7 @@ class BloodBankAdapter(
         val name: TextView = itemView.findViewById(R.id.textViewOrganization)
         val address: TextView = itemView.findViewById(R.id.textViewLocation)
         val email: TextView = itemView.findViewById(R.id.textViewEmail)
-        val phoneNumber: CheckBox = itemView.findViewById(R.id.textViewPhone)
+        val phoneNumber: TextView = itemView.findViewById(R.id.textViewPhone)
         val requestButtoon: Button= itemView.findViewById(R.id.buttonRequest)
     }
 }

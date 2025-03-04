@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class BloodBankRepositoryImpl:BloodBankRepository {
+class BloodBankRepositoryImpl : BloodBankRepository {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val reference: DatabaseReference = database.reference.child("BloodRepo")
 
@@ -63,29 +63,41 @@ class BloodBankRepositoryImpl:BloodBankRepository {
         bloodGroup: String,
         callback: (List<OrganizationModel>, Boolean, String) -> Unit
     ) {
-        val organizations = mutableListOf<OrganizationModel>()
-
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val bloodBanks = mutableListOf<BloodBankModel>()
+                    val organizations = mutableListOf<OrganizationModel>()
+                    var pendingCount = snapshot.childrenCount
+
                     for (orgSnapshot in snapshot.children) {
-                        // Each child is an OrgId
-                        val orgId = orgSnapshot.key
                         val bloodBank = orgSnapshot.getValue(BloodBankModel::class.java)
+                        println("Blood Bank: $bloodBank")
+
                         bloodBank?.let {
                             if (it.getAvailableUnits(bloodGroup) > 0) {
-                                // Fetch organization data using the OrgId
-                                val orgViewModel = OrganizationViewModel(OrganizationRepositoryImpl())
-                                orgViewModel.getDataFromDB(bloodBank.OrgId ?: "") // Pass the OrgId to fetch organization data
-                                orgViewModel.userData.observeForever { organization ->
-                                    organization?.let { organizations.add(it) }
+                                fetchOrganizationData(it.OrgId, object : DataFetchListener {
+                                    override fun onDataFetched(organization: OrganizationModel?) {
+                                        organization?.let { org ->
+                                            organizations.add(org)
+                                            println("Organization added: ${org.fullName}")
+                                        } ?: println("No organization data found for OrgId: ${it.OrgId}")
+
+                                        pendingCount--
+                                        if (pendingCount.toInt() == 0) {
+                                            callback(organizations, true, "Organizations fetched successfully")
+                                            println("Organizations: $organizations")
+                                        }
+                                    }
+                                })
+                            } else {
+                                pendingCount--
+                                if (pendingCount.toInt() == 0) {
+                                    callback(organizations, true, "Organizations fetched successfully")
+                                    println("Organizations: $organizations")
                                 }
                             }
                         }
                     }
-                    // Callback with the list of organizations
-                    callback(organizations, true, "Organizations fetched successfully")
                 } else {
                     callback(emptyList(), false, "No Bloods Available")
                 }
@@ -96,5 +108,18 @@ class BloodBankRepositoryImpl:BloodBankRepository {
             }
         })
     }
+
+    private fun fetchOrganizationData(orgId: String, listener: DataFetchListener) {
+        val orgViewModel = OrganizationViewModel(OrganizationRepositoryImpl())
+        orgViewModel.getDataFromDB(orgId)
+        orgViewModel.userData.observeForever { organization ->
+            listener.onDataFetched(organization)
+        }
+    }
 }
+interface DataFetchListener {
+    fun onDataFetched(organization: OrganizationModel?)
+}
+
+
 
