@@ -39,7 +39,7 @@
                 android:id="@+id/usernameDash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="User Dashboard"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

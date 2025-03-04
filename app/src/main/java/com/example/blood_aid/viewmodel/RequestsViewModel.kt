@@ -3,10 +3,12 @@ package com.example.blood_aid.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.blood_aid.model.RequestModel
 import com.example.blood_aid.repository.RequestRepository
+import kotlinx.coroutines.launch
 
-class RequestsViewModel(private val repository: RequestRepository){
+class RequestsViewModel(private val repository: RequestRepository) : ViewModel() {
 
     private val requestsLiveData = MutableLiveData<MutableList<RequestModel>>()
 
@@ -19,13 +21,20 @@ class RequestsViewModel(private val repository: RequestRepository){
             address = address,
             timestamp = System.currentTimeMillis()
         )
-        repository.addRequest(request)
-        fetchAllRequests() // Refresh the list after adding a new request
+
+        // Launch a coroutine to add the request and then fetch all requests
+        viewModelScope.launch {
+            repository.addRequest(request) // Add the request to the repository
+            fetchAllRequests() // Refresh the list after adding a new request
+        }
     }
 
     fun fetchAllRequests() {
-        repository.deleteOldRequests() // Remove old requests
-        requestsLiveData.postValue(repository.fetchAllRequests().toMutableList())
+        viewModelScope.launch {
+            repository.deleteOldRequests() // Remove old requests
+            val requests = repository.fetchAllRequests() // Fetch all requests from the repository
+            requestsLiveData.postValue(requests.toMutableList()) // Update LiveData
+        }
     }
 
     fun getRequestsLiveData(): LiveData<MutableList<RequestModel>> {

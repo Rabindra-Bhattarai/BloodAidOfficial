@@ -1,48 +1,58 @@
 package com.example.blood_aid.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blood_aid.R
-import com.example.blood_aid.model.BloodBankModel
+import com.example.blood_aid.model.OrganizationModel
+import com.example.blood_aid.viewmodel.AdminViewModel
+import com.example.blood_aid.viewmodel.BloodRepoViewModel
 
-class BloodBankAdapter : ListAdapter<BloodBankModel, BloodBankAdapter.BloodBankViewHolder>(
-    BloodBankDiffCallback()
-) {
+class BloodBankAdapter(
+    private val context: Context,
+    private var orgList: ArrayList<OrganizationModel>,
+    private val viewModel: BloodRepoViewModel
+) : RecyclerView.Adapter<BloodBankAdapter.BloodBankViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BloodBankViewHolder {
-        // Inflate the item layout
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.single_blood_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.single_blood_item, parent, false)
         return BloodBankViewHolder(view)
     }
 
+    override fun getItemCount(): Int {
+        return orgList.size
+    }
+
     override fun onBindViewHolder(holder: BloodBankViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val organization = orgList[position]
+        holder.name.text = organization.fullName
+        holder.address.text = organization.address
+        holder.email.text = organization.email
+       holder.phoneNumber.text=organization.phoneNumber
+        holder.requestButtoon.setOnClickListener{
+            //
+        }
+    }
+
+    fun updateData(newOrgList: List<OrganizationModel>?) {
+        orgList.clear()
+        if (newOrgList != null) {
+            orgList.addAll(newOrgList)
+        }
+        notifyDataSetChanged()
     }
 
     class BloodBankViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewOrgId: TextView = itemView.findViewById(R.id.textViewOrganization)
-        // Add other TextViews or Views as needed
-
-        fun bind(bloodBank: BloodBankModel) {
-            // Bind the data to the views
-            textViewOrgId.text = bloodBank.OrgId
-            // Bind other data as needed
-            // Example: textViewBloodCount.text = bloodBank.getBloodCount() // If you have a method to get blood count
-        }
-    }
-
-    class BloodBankDiffCallback : DiffUtil.ItemCallback<BloodBankModel>() {
-        override fun areItemsTheSame(oldItem: BloodBankModel, newItem: BloodBankModel): Boolean {
-            return oldItem.OrgId == newItem.OrgId
-        }
-
-        override fun areContentsTheSame(oldItem: BloodBankModel, newItem: BloodBankModel): Boolean {
-            return oldItem == newItem
-        }
+        val name: TextView = itemView.findViewById(R.id.textViewOrganization)
+        val address: TextView = itemView.findViewById(R.id.textViewLocation)
+        val email: TextView = itemView.findViewById(R.id.textViewEmail)
+        val phoneNumber: CheckBox = itemView.findViewById(R.id.textViewPhone)
+        val requestButtoon: Button= itemView.findViewById(R.id.buttonRequest)
     }
 }

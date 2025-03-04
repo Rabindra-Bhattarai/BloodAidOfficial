@@ -14,6 +14,20 @@ data class BloodBankModel (
         var O_POSITIVE:Int=0,
         var O_NEGATIVE:Int=0
     ): Parcelable {
+    fun getAvailableUnits(bloodGroup: String): Int {
+        return when (bloodGroup) {
+            "a_POSITIVE" -> A_POSITIVE
+            "a_NEGATIVE" -> A_NEGATIVE
+            "b_POSITIVE" -> B_POSITIVE
+            "b_NEGATIVE" -> B_NEGATIVE
+            "ab_POSITIVE" -> AB_POSITIVE
+            "ab_NEGATIVE" -> AB_NEGATIVE
+            "o_POSITIVE" -> O_POSITIVE
+            "o_NEGATIVE" -> O_NEGATIVE
+            else -> 0 // Return 0 if the blood group is not recognized
+        }
+    }
+
         constructor(parcel: Parcel) : this(
             parcel.readString().toString()?:"",
             parcel.readInt()?:0,
@@ -24,8 +38,12 @@ data class BloodBankModel (
             parcel.readInt()?:0,
             parcel.readInt()?:0,
             parcel.readInt()?:0
-        ) {
+        )
+
+        {
+
         }
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(OrgId)

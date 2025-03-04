@@ -36,6 +36,22 @@ class UserDashActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             val intent = Intent(this@UserDashActivity,UserProfileActivity::class.java)
             startActivity(intent)
         }
+        binding.notificationNav.setOnClickListener {
+            val intent= Intent(this,NewsActivity::class.java)
+            startActivity(intent)
+        }
+        binding.viewNews.setOnClickListener {
+            val intent= Intent(this,NewsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.bloodSearchButton.setOnClickListener{
+            val intent=Intent(this,SearchBloodActivity::class.java)
+            intent.putExtra("bloodGroup",bg)
+            startActivity(intent)
+        }
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
