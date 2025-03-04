@@ -1,10 +1,13 @@
 package com.example.blood_aid.model
 
 data class RequestModel(
-    val id: Long,
-    val requestorName: String,
-    val phoneNumber: String,
-    val bloodGroup: String,
-    val address: String,
-    val timestamp: Long // To track when the request was created
-)
+    var id: Long = 0, // Add default values to fields
+    var requestorName: String = "",
+    var phoneNumber: String = "",
+    var bloodGroup: String = "",
+    var address: String = "",
+    var timestamp: Long = 0
+) {
+    // No-argument constructor required for Firebase
+    constructor() : this(0, "", "", "", "", 0)
+}

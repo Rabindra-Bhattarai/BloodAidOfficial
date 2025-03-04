@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.model.RequestModel
 import com.example.blood_aid.repository.RequestRepository
 import kotlinx.coroutines.launch
@@ -12,6 +13,9 @@ import kotlinx.coroutines.launch
 class RequestsViewModel(private val repository: RequestRepository) : ViewModel() {
 
     private val requestsLiveData = MutableLiveData<MutableList<RequestModel>>()
+
+    private val _allOrg = MutableLiveData<List<RequestModel>?>()
+    val allOrg: MutableLiveData<List<RequestModel>?> get() = _allOrg
 
     fun addRequest(requestorName: String, phoneNumber: String, bloodGroup: String, address: String) {
         val request = RequestModel(
@@ -30,20 +34,19 @@ class RequestsViewModel(private val repository: RequestRepository) : ViewModel()
         }
     }
 
+
+
     fun fetchAllRequests() {
         viewModelScope.launch {
-            try {
-                repository.deleteOldRequests() // Remove old requests
-                val requests = repository.fetchAllRequests() // Fetch all requests from the repository
-                Log.d("RequestsViewModel", "Fetched requests: ${requests.size}")
-                requestsLiveData.postValue(requests.toMutableList()) // Update LiveData
-            } catch (e: Exception) {
-                Log.e("RequestsViewModel", "Error fetching requests", e)
+            repository.fetchRequests { products, success, _ ->
+                if (success) {
+                    Log.d("RequestsViewModel", "Fetched ${products.size} requests")
+                    _allOrg.postValue(products)
+                } else {
+                    Log.d("RequestsViewModel", "No requests found")
+                    _allOrg.postValue(emptyList())
+                }
             }
         }
-    }
-
-    fun getRequestsLiveData(): LiveData<MutableList<RequestModel>> {
-        return requestsLiveData
     }
 }

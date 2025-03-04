@@ -5,7 +5,7 @@ import com.example.blood_aid.model.RequestModel
 interface RequestRepository {
     suspend fun addRequest(request: RequestModel): String
 
-   suspend fun fetchAllRequests(): List<RequestModel>
+    fun fetchRequests(callback: (List<RequestModel>, Boolean, String) -> Unit)
 
     suspend fun deleteOldRequests()
 

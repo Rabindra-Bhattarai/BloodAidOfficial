@@ -1,8 +1,13 @@
 package com.example.blood_aid.repository
 
+import android.util.Log
+import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.model.RequestModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.tasks.await
@@ -33,21 +38,43 @@ class RequestRepositoryImpl : RequestRepository {
         }
     }
 
-    override suspend fun fetchAllRequests(): List<RequestModel> {
-        return try {
-            val snapshot = database.get().await() // Get all requests
-            snapshot.children.mapNotNull { it.getValue<RequestModel>() }
-        } catch (e: Exception) {
-            emptyList() // Handle exceptions (e.g., network issues)
-        }
-        }
-        override suspend fun deleteOldRequests() {
-        val requests = fetchAllRequests()
-        requests.forEach { request ->
-            if (isOldRequest(request)) {
-                database.child(request.id.toString()).removeValue() // Remove old requests
+    override fun fetchRequests(callback: (List<RequestModel>, Boolean, String) -> Unit) {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            var organizations = mutableListOf<RequestModel>()
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (eachProduct in snapshot.children) {
+                        val model = eachProduct.getValue(RequestModel::class.java)
+                        if (model != null) {
+                            organizations.add(model)
+                        }
+                    }
+                    Log.d("RequestRepository", "Fetched ${organizations.size} requests")
+                    callback(organizations, true, "Requests fetched successfully")
+                } else {
+                    Log.d("RequestRepository", "No organizations found")
+                    callback(emptyList(), false, "No organizations found")
+                }
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("RequestRepository", "Error fetching requests: ${error.message}")
+                callback(emptyList(), false, error.message)
+            }
+        })
+    }
+
+    override suspend fun deleteOldRequests() {
+            fetchRequests(){
+                data,success,messege->
+                data.forEach { request ->
+                    if (isOldRequest(request)) {
+                        database.child(request.id.toString()).removeValue() // Remove old requests
+                    }
+                }
+            }
+
     }
 
     override fun isOldRequest(request: RequestModel): Boolean {

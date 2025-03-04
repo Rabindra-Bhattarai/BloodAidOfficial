@@ -1,18 +1,21 @@
 package com.example.blood_aid.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blood_aid.R
+import com.example.blood_aid.model.OrganizationModel
 import com.example.blood_aid.model.RequestModel
+import com.example.blood_aid.viewmodel.AdminViewModel
 
 class RequestAdapter(
     private val context: Context,
-    private var requests: ArrayList<RequestModel>
+    private var orgList: ArrayList<RequestModel>,
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
@@ -21,30 +24,30 @@ class RequestAdapter(
     }
 
     override fun getItemCount(): Int {
-        return requests.size
+        return orgList.size
     }
 
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
-        val request = requests[position]
-        holder.requestedBy.text = request.requestorName
-        holder.phone.text = request.phoneNumber
-        holder.bldgrp.text = request.bloodGroup
-        holder.address.text = request.address
+        val organization = orgList[position]
+        holder.name.text=organization.requestorName
+        holder.number.text=organization.phoneNumber
+        holder.bloodGroup.text=organization.bloodGroup
+        holder.address.text=organization.address
+
     }
 
-    fun updateData(newRequestList: List<RequestModel>?) {
-        requests.clear()
-        if (newRequestList != null) {
-            requests.addAll(newRequestList)
+    fun updateData(newOrgList: List<RequestModel>?) {
+        orgList.clear()
+        if (newOrgList != null) {
+            orgList.addAll(newOrgList)
         }
-        Log.d("RequestAdapter", "Updated data with ${requests.size} items")
         notifyDataSetChanged()
     }
 
     class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val requestedBy: TextView = itemView.findViewById(R.id.requestor_name)
-        val phone: TextView = itemView.findViewById(R.id.phone_number)
-        val bldgrp: TextView = itemView.findViewById(R.id.blood_group)
+        val name: TextView = itemView.findViewById(R.id.requestor_name)
+        val number: TextView = itemView.findViewById(R.id.phone_number)
+        val bloodGroup: TextView = itemView.findViewById(R.id.blood_group)
         val address: TextView = itemView.findViewById(R.id.address)
     }
 }
