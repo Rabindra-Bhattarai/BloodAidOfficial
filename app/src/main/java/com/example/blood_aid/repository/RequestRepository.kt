@@ -3,7 +3,7 @@ package com.example.blood_aid.repository
 import com.example.blood_aid.model.RequestModel
 
 interface RequestRepository {
-    fun addRequest(request: RequestModel)
+    suspend fun addRequest(request: RequestModel): String
 
    suspend fun fetchAllRequests(): List<RequestModel>
 

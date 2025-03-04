@@ -29,6 +29,9 @@ class SearchBloodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBloodBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.buttonBack.setOnClickListener{
+            finish()
+        }
         val bldGrp = intent.getStringExtra("bloodGroup") ?: "A+"
         blood = formatBloodGroup(bldGrp)
         setupRecyclerView()

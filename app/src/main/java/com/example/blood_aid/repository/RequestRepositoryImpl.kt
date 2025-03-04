@@ -11,10 +11,24 @@ class RequestRepositoryImpl : RequestRepository {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("requests")
 
-    override fun addRequest(request: RequestModel) {
-        val requestId = database.push().key // Generate a unique ID for the request
-        requestId?.let {
-            database.child(it).setValue(request)
+    override suspend fun addRequest(request: RequestModel): String {
+        return try {
+            // Fetch all requests and check for existing request with the same phone number
+            val snapshot = database.orderByChild("phoneNumber").equalTo(request.phoneNumber).get().await()
+            val existingRequest = snapshot.children.mapNotNull { it.getValue<RequestModel>() }
+                .find { it.phoneNumber == request.phoneNumber }
+
+            if (existingRequest == null) {
+                val requestId = database.push().key // Generate a unique ID for the request
+                requestId?.let {
+                    database.child(it).setValue(request)
+                }
+                "Request added successfully"
+            } else {
+                "Request already sent"
+            }
+        } catch (e: Exception) {
+            "Failed to add request: ${e.message}"
         }
     }
 

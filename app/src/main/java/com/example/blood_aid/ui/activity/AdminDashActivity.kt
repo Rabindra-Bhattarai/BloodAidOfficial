@@ -1,6 +1,5 @@
 package com.example.blood_aid.ui.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -17,7 +16,7 @@ import com.example.blood_aid.repository.UserRepositoryImpl
 import com.example.blood_aid.ui.fragments.ConformFragment
 import com.example.blood_aid.ui.fragments.OrganizationFragment
 import com.example.blood_aid.viewmodel.UserViewModel
-import com.example.firebaselearn.utils.LoadingUtils
+import com.example.blood_aid.utils.LoadingUtils
 
 class AdminDashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminDashBinding

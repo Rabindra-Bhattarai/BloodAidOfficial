@@ -22,9 +22,8 @@ class RequestsViewModel(private val repository: RequestRepository) : ViewModel()
             timestamp = System.currentTimeMillis()
         )
 
-        // Launch a coroutine to add the request and then fetch all requests
         viewModelScope.launch {
-            repository.addRequest(request) // Add the request to the repository
+            repository.addRequest(request) // Add the request to the repository with callback
             fetchAllRequests() // Refresh the list after adding a new request
         }
     }

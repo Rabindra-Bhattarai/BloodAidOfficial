@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityNewRegistrationBinding
 import com.example.blood_aid.model.IndividualModel
-import com.example.firebaselearn.utils.LoadingUtils
+import com.example.blood_aid.utils.LoadingUtils
 
 class NewRegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityNewRegistrationBinding

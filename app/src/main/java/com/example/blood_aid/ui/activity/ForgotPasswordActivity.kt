@@ -14,6 +14,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var submitButton: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var backbutton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
         // Bind views
         emailInput = findViewById(R.id.orgtEmail)
         submitButton = findViewById(R.id.btnOk)
+        backbutton=findViewById(R.id.btnCancel)
+
+        backbutton.setOnClickListener{
+            finish()
+        }
 
         // Set click listener for the submit button
         submitButton.setOnClickListener {

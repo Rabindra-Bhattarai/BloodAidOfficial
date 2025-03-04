@@ -13,7 +13,7 @@ import android.widget.Toast
 
 import com.example.blood_aid.databinding.FragmentConformBinding
 import com.example.blood_aid.ui.activity.UserLoginActivity
-import com.example.firebaselearn.utils.LoadingUtils
+import com.example.blood_aid.utils.LoadingUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 

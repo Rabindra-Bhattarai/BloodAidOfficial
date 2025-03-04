@@ -7,11 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityOrgRegistrationBinding
-import com.example.blood_aid.model.IndividualModel
 import com.example.blood_aid.model.OrganizationModel
-import com.example.firebaselearn.utils.LoadingUtils
+import com.example.blood_aid.utils.LoadingUtils
 
 class OrgRegistrationActivity : AppCompatActivity() {
 

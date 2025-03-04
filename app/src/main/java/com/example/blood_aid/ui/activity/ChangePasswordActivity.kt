@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.blood_aid.R
 import com.example.blood_aid.databinding.ActivityChangePasswordBinding
-import com.example.firebaselearn.utils.LoadingUtils
+import com.example.blood_aid.utils.LoadingUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
