@@ -15,6 +15,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
     private lateinit var auth: FirebaseAuth
     private lateinit var backbutton:Button
+    private lateinit var result: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         emailInput = findViewById(R.id.orgtEmail)
         submitButton = findViewById(R.id.btnOk)
         backbutton=findViewById(R.id.btnCancel)
+        result=findViewById(R.id.isGood)
 
         backbutton.setOnClickListener{
             finish()
@@ -47,6 +49,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    result.text="OK"
+                    result.visibility=android.view.View.GONE
                     Toast.makeText(this, "Password reset email sent!", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()

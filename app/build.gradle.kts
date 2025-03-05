@@ -57,5 +57,18 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-auth")
 
+    testImplementation("org.mockito:mockito-core:5.6.0")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    androidTestImplementation("org.mockito:mockito-kotlin:3.2.0")
+
+    testImplementation("org.mockito:mockito-core:3.12.4") // or the latest version
+    testImplementation("org.mockito:mockito-inline:3.12.4") // or the latest version
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0") // Updated to a newer version
+    androidTestImplementation("org.mockito:mockito-android:3.12.4") // or the latest version
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test:rules:1.2.0")
+
+
 
 }
